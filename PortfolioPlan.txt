@@ -1,0 +1,2510 @@
+# Portfolio Website Master Plan
+
+**File name:** `portfolioplan.md`  
+**Project name:** Living Canvas Portfolio  
+**Version:** 2.0  
+**Primary goal:** Build a premium, fully flexible, MongoDB-powered portfolio website that can be edited without touching code, supports drag-and-drop project reordering, includes an AI assistant trained on portfolio data, and uses only free resources.
+
+---
+
+## 1. Project Vision
+
+This portfolio should not feel like a basic static resume.
+
+It should feel like a **living digital product** that proves strong UI/UX, web design, and frontend engineering skills.
+
+The final website should be:
+
+- Fully editable from an admin panel.
+- Visually impressive.
+- Smooth and interactive.
+- Flexible enough to grow over time.
+- Easy to update without code changes.
+- Powered by MongoDB.
+- Built and hosted using free tools only.
+- Enhanced with an AI assistant that can answer visitor questions using portfolio data.
+
+The portfolio should act like a **digital twin** of the owner.
+
+---
+
+## 2. Core Objectives
+
+### 2.1 Flexibility
+
+The owner must be able to edit:
+
+- Name
+- Profile image
+- Role/title
+- Short bio
+- Long bio
+- Hero headline
+- Hero subtext
+- Availability status
+- Contact email
+- Social links
+- Skills
+- Projects
+- Project thumbnails
+- Project galleries
+- Project case studies
+- Project tech stack
+- Project links
+- Featured projects
+- Project order
+- Homepage section visibility
+- Footer text
+- AI assistant greeting
+
+No normal content update should require editing code.
+
+---
+
+### 2.2 Project Management
+
+The admin panel must support:
+
+- Adding new projects.
+- Editing existing projects.
+- Deleting projects.
+- Uploading project images.
+- Writing project case studies.
+- Marking projects as featured.
+- Publishing/unpublishing projects.
+- Drag-and-drop reordering of projects.
+- Optional keyboard or button-based reordering for accessibility.
+
+The public project list must respect the saved order.
+
+---
+
+### 2.3 Design Quality
+
+The website must showcase UI/UX ability.
+
+It should include:
+
+- Strong typography.
+- Clean spacing.
+- Elegant color usage.
+- Smooth transitions.
+- Micro-interactions.
+- Responsive layout.
+- Accessible components.
+- Premium hover effects.
+- Beautiful mobile experience.
+
+---
+
+### 2.4 AI Assistant
+
+The website must include a visitor-facing AI assistant.
+
+Visitors should be able to ask things like:
+
+- “What projects has this person built?”
+- “What is their tech stack?”
+- “Tell me about their design skills.”
+- “Which project is featured?”
+- “What is their background?”
+- “How can I contact them?”
+- “What was the goal of this project?”
+
+The assistant should answer using data from the portfolio database.
+
+---
+
+## 3. Non-Negotiable Constraints
+
+The project must use only free resources.
+
+Required constraints:
+
+- MongoDB must be used for storage.
+- No paid hosting.
+- No paid database plan.
+- No paid CMS.
+- No paid image hosting.
+- No required paid AI API.
+- The codebase should be maintainable by an AI coding agent.
+
+If a feature requires a paid service, it must be optional or replaced with a free alternative.
+
+---
+
+## 4. Recommended Tech Stack
+
+### 4.1 Framework
+
+Use:
+
+- **Next.js**
+- App Router
+- TypeScript
+
+Why:
+
+- Free on Vercel.
+- Supports frontend pages and backend API routes.
+- Good for SEO.
+- Easy deployment.
+- Works well with React libraries.
+
+---
+
+### 4.2 Styling
+
+Use:
+
+- **Tailwind CSS**
+- CSS variables for theme tokens
+- Optional CSS modules for complex animations
+
+Why:
+
+- Fast to build clean UI.
+- Easy responsive design.
+- Good for design-system-style development.
+
+---
+
+### 4.3 Animation
+
+Use:
+
+- **Framer Motion**
+- **Lenis** for smooth scrolling
+
+Why:
+
+- Needed for premium UI feel.
+- Supports page transitions, hover effects, scroll reveals, and layout animations.
+
+---
+
+### 4.4 Database
+
+Use:
+
+- **MongoDB Atlas Free Tier**
+- **Mongoose**
+
+Why:
+
+- User wants MongoDB.
+- Free tier is enough for portfolio content.
+- Easy to model profile, projects, skills, and settings.
+
+---
+
+### 4.5 Image Storage
+
+Use:
+
+- **Cloudinary Free Tier**
+
+Why:
+
+- Do not store image binaries directly in MongoDB.
+- Cloudinary gives free storage and image optimization.
+- Can store thumbnails, gallery images, profile image, and case study images.
+
+---
+
+### 4.6 Drag and Drop
+
+Use:
+
+- `@dnd-kit/core`
+- `@dnd-kit/sortable`
+- `@dnd-kit/utilities`
+
+Why:
+
+- Modern React drag-and-drop.
+- Accessible.
+- Works well for sortable admin lists.
+
+---
+
+### 4.7 Authentication
+
+Use:
+
+- **NextAuth.js**
+- Credentials provider
+- Single admin user
+
+Why:
+
+- Simple and free.
+- Protects admin routes and API mutations.
+
+---
+
+### 4.8 AI Assistant
+
+Primary provider:
+
+- **Groq API**
+
+Fallback provider:
+
+- **Google Gemini Free Tier**
+
+Optional fallback:
+
+- **OpenRouter free model**, if desired
+
+Behavior:
+
+- If AI provider is configured, show assistant.
+- If AI provider is unavailable, show friendly fallback message.
+- If no AI key exists, hide or disable assistant gracefully.
+
+---
+
+### 4.9 Deployment
+
+Use:
+
+- **GitHub**
+- **Vercel Free Tier**
+
+Why:
+
+- Free hosting.
+- Easy environment variables.
+- Automatic deployments.
+
+---
+
+## 5. Product Concept
+
+### Name
+
+**Living Canvas Portfolio**
+
+### Concept
+
+The portfolio is a living, editable design system.
+
+It should feel like:
+
+- A designer’s showcase.
+- A mini product.
+- A digital twin.
+- An interactive case study.
+
+It should not feel like:
+
+- A generic template.
+- A plain resume.
+- A basic grid of screenshots.
+
+---
+
+## 6. Design Direction
+
+### 6.1 Visual Style
+
+The design should be:
+
+- Modern
+- Editorial
+- Clean
+- Premium
+- Slightly futuristic
+- Highly polished
+
+Use:
+
+- Large typography.
+- Soft gradients.
+- Rounded cards.
+- Subtle borders.
+- Glassmorphism in small doses.
+- Strong whitespace.
+- Smooth motion.
+
+---
+
+### 6.2 Color System
+
+Use CSS variables for colors.
+
+Suggested light mode:
+
+- Background: off-white
+- Surface: white
+- Text: near-black
+- Muted text: gray
+- Accent: vivid violet, blue, or lime
+
+Suggested dark mode:
+
+- Background: deep charcoal
+- Surface: elevated charcoal
+- Text: soft white
+- Muted text: light gray
+- Accent: neon violet, cyan, or lime
+
+The accent color should be editable from admin settings if possible.
+
+---
+
+### 6.3 Typography
+
+Use modern fonts.
+
+Suggested heading fonts:
+
+- Space Grotesk
+- Sora
+- Syne
+- Clash Display
+
+Suggested body fonts:
+
+- Inter
+- Manrope
+- Geist
+
+Typography should be one of the strongest parts of the design.
+
+---
+
+## 7. Magic Features That Make It Stand Out
+
+These features are what make the portfolio feel special.
+
+---
+
+### 7.1 Cinematic Hero Section
+
+The homepage hero should feel alive.
+
+Include:
+
+- Animated headline.
+- Short intro text.
+- Availability badge.
+- Profile image or abstract visual.
+- CTA buttons.
+- Subtle cursor-reactive background.
+
+Example headline:
+
+```txt
+Designing digital experiences that feel alive.
+```
+
+Example subtext:
+
+```txt
+I am a UI/UX and web designer crafting expressive, flexible, and user-focused digital products.
+```
+
+---
+
+### 7.2 Custom Cursor
+
+Use a custom cursor on desktop only.
+
+Cursor states:
+
+- Default dot/ring.
+- Expanded on links.
+- “View” label over project cards.
+- “Drag” label over draggable admin items.
+- Hidden on touch devices.
+
+Respect user preference and device capability.
+
+---
+
+### 7.3 Magnetic Buttons
+
+Buttons and links should slightly move toward the cursor.
+
+Use:
+
+- Framer Motion.
+- Small transform values.
+- Smooth reset on mouse leave.
+
+Do not overdo it.
+
+---
+
+### 7.4 Smooth Page Transitions
+
+Use Framer Motion for transitions.
+
+Examples:
+
+- Fade/slide page entry.
+- Shared layout animation from project card to project page.
+- Smooth section reveal.
+- Animated navbar appearance.
+
+---
+
+### 7.5 Project Cards with Depth
+
+Project cards should feel interactive.
+
+Include:
+
+- Thumbnail.
+- Title.
+- Short description.
+- Tech tags.
+- Featured badge.
+- Hover glow.
+- Subtle 3D tilt.
+- Image zoom on hover.
+
+---
+
+### 7.6 Command Palette
+
+Add a `Ctrl + K` or `Cmd + K` command palette.
+
+It can search:
+
+- Projects.
+- Skills.
+- Pages.
+- Social links.
+- Contact action.
+
+This makes the portfolio feel like a polished product.
+
+---
+
+### 7.7 AI Assistant Orb
+
+The AI assistant should not be a boring chat box.
+
+Design it as:
+
+- A floating orb.
+- A small avatar.
+- A glowing assistant button.
+
+When clicked:
+
+- It expands into a chat panel.
+- Shows greeting.
+- Shows suggested questions.
+- Streams AI responses.
+- Shows typing/loading indicator.
+
+Labels:
+
+- “Ask my digital twin”
+- “Ask about my work”
+- “Chat with my portfolio”
+
+---
+
+### 7.8 Block-Based Case Studies
+
+Each project page should not just be one long text field.
+
+It should support blocks such as:
+
+- Heading
+- Paragraph
+- Image
+- Image gallery
+- Quote
+- Metric
+- Link
+- Before/After image comparison
+- Process step list
+
+This allows flexible case study editing without code.
+
+---
+
+### 7.9 Before/After Slider
+
+For redesign projects, include a before/after image slider.
+
+This is very effective for UI/UX portfolios.
+
+Use cases:
+
+- Old UI vs redesigned UI.
+- Wireframe vs final design.
+- Low-fidelity vs high-fidelity.
+
+---
+
+### 7.10 Process Timeline
+
+Each project can show a simple process timeline:
+
+- Discover
+- Define
+- Design
+- Prototype
+- Test
+- Build
+
+This helps demonstrate design thinking, not just visuals.
+
+---
+
+### 7.11 Metrics Blocks
+
+Projects can include impact metrics.
+
+Examples:
+
+- Improved usability
+- Reduced friction
+- Increased engagement
+- Faster task completion
+- Better visual hierarchy
+
+Even qualitative metrics are useful.
+
+---
+
+### 7.12 Animated Skill Marquee
+
+Show skills in a moving marquee.
+
+Example:
+
+```txt
+UI Design — UX Design — Figma — React — Next.js — MongoDB — Tailwind CSS — Prototyping — Motion Design
+```
+
+Pause on hover.
+
+---
+
+### 7.13 Easter Egg Mode
+
+Add a hidden mode for personality.
+
+Example trigger:
+
+- Click logo five times.
+- Type a secret phrase.
+- Press a keyboard shortcut.
+
+Easter egg mode can change:
+
+- Accent color.
+- Background pattern.
+- Cursor style.
+- Font style.
+- Animation intensity.
+
+Keep it subtle and reversible.
+
+---
+
+### 7.14 Smart Empty States
+
+If no projects exist, show a beautiful empty state.
+
+Example:
+
+```txt
+No projects yet. New work is being crafted.
+```
+
+This makes the product feel complete even when content is minimal.
+
+---
+
+## 8. Public Website Structure
+
+The public site should include:
+
+---
+
+### 8.1 Homepage
+
+Homepage sections:
+
+1. Navbar
+2. Hero
+3. Featured projects
+4. All projects
+5. About preview
+6. Skills
+7. Contact
+8. Footer
+9. AI assistant widget
+10. Command palette
+
+Homepage sections should be toggleable and orderable from admin settings if possible.
+
+---
+
+### 8.2 Navbar
+
+Navbar should include:
+
+- Logo/name
+- Work
+- About
+- Skills
+- Contact
+- Theme toggle
+- Command palette trigger
+
+Behavior:
+
+- Sticky.
+- Becomes blurred/glassy on scroll.
+- Highlights active section if one-page layout is used.
+
+---
+
+### 8.3 Hero Section
+
+Hero should include:
+
+- Name
+- Role/title
+- Headline
+- Short intro
+- CTA buttons
+- Availability badge
+- Profile image or visual
+
+CTA examples:
+
+- View Work
+- Contact Me
+- Ask AI
+
+---
+
+### 8.4 Featured Projects
+
+Show featured projects first.
+
+Featured projects are controlled from admin.
+
+Featured cards should be larger and more visually rich.
+
+---
+
+### 8.5 All Projects
+
+Show all published projects in custom order.
+
+Order must come from MongoDB.
+
+Each project card should link to its detail page.
+
+---
+
+### 8.6 Project Detail Page
+
+Route:
+
+```txt
+/projects/[slug]
+```
+
+Project page should include:
+
+- Hero image
+- Title
+- Summary
+- Role
+- Timeline/year
+- Tech stack
+- Live link
+- Repository link
+- Case study blocks
+- Image gallery
+- Previous/next project navigation
+- Optional “Ask AI about this project” button
+
+Only published projects should be visible publicly.
+
+---
+
+### 8.7 About Section
+
+About section should include:
+
+- Profile image
+- Long bio
+- Design philosophy
+- Tools
+- Location
+- Availability
+- Social links
+
+---
+
+### 8.8 Skills Section
+
+Skills should be grouped by category.
+
+Example categories:
+
+- Design
+- Frontend
+- Backend
+- Motion
+- Tools
+
+Skills should be editable from admin.
+
+---
+
+### 8.9 Contact Section
+
+Contact section should include:
+
+- Email button
+- Social links
+- Optional contact form
+
+MVP recommendation:
+
+Use mailto button first.
+
+Optional later:
+
+Store messages in MongoDB.
+
+---
+
+### 8.10 Footer
+
+Footer should include:
+
+- Copyright
+- Social links
+- Theme toggle
+- Hidden admin link
+- “Built with Next.js and MongoDB”
+- Optional availability note
+
+---
+
+## 9. Admin Panel Structure
+
+Admin area route:
+
+```txt
+/admin
+```
+
+All admin routes must require authentication.
+
+---
+
+### 9.1 Admin Login
+
+Route:
+
+```txt
+/admin/login
+```
+
+Fields:
+
+- Email
+- Password
+
+Use NextAuth credentials provider.
+
+Admin credentials should come from environment variables.
+
+---
+
+### 9.2 Admin Dashboard
+
+Route:
+
+```txt
+/admin
+```
+
+Show:
+
+- Total projects
+- Published projects
+- Featured projects
+- Total skills
+- Last updated project
+- Profile completion status
+- Quick edit buttons
+- View site button
+- Logout button
+
+---
+
+### 9.3 Profile Editor
+
+Route:
+
+```txt
+/admin/profile
+```
+
+Editable fields:
+
+- Name
+- Role/title
+- Tagline
+- Short bio
+- Long bio
+- Design philosophy
+- Profile image
+- Resume link
+- Email
+- Location
+- Availability status
+- Social links
+
+Save to MongoDB.
+
+---
+
+### 9.4 Project Manager
+
+Route:
+
+```txt
+/admin/projects
+```
+
+Show project list with:
+
+- Thumbnail
+- Title
+- Status
+- Featured badge
+- Published toggle
+- Created date
+- Updated date
+- Edit button
+- Delete button
+- Drag handle
+
+Support:
+
+- Drag-and-drop reordering.
+- Keyboard/button fallback reordering.
+- Search/filter projects.
+- Empty state.
+
+---
+
+### 9.5 Project Editor
+
+Routes:
+
+```txt
+/admin/projects/new
+/admin/projects/[id]/edit
+```
+
+Editable fields:
+
+- Title
+- Slug
+- Short summary
+- Role
+- Year/timeline
+- Thumbnail
+- Gallery images
+- Tech stack tags
+- Project tags
+- Live link
+- Repository link
+- Featured
+- Published
+- Case study blocks
+- Project metrics
+- Process steps
+
+Slug behavior:
+
+- Auto-generate from title.
+- Allow manual edit.
+- Ensure uniqueness.
+- URL-safe.
+
+---
+
+### 9.6 Case Study Block Editor
+
+Inside project editor, allow adding blocks.
+
+Minimum block types:
+
+- Heading
+- Paragraph
+- Image
+- Gallery
+- Quote
+- Metric
+- Link
+
+Optional advanced blocks:
+
+- Before/After image comparison
+- Process timeline
+- Checklist
+- Embed/video
+
+Each block should support:
+
+- Add
+- Edit
+- Delete
+- Reorder
+
+This makes project pages flexible without code.
+
+---
+
+### 9.7 Skills Manager
+
+Route:
+
+```txt
+/admin/skills
+```
+
+Features:
+
+- Add skill category.
+- Edit category name.
+- Delete category.
+- Add skill items.
+- Remove skill items.
+- Reorder categories.
+- Reorder skills inside category if needed.
+
+---
+
+### 9.8 Settings
+
+Route:
+
+```txt
+/admin/settings
+```
+
+Editable settings:
+
+- Hero headline
+- Hero subtext
+- Primary CTA label
+- Secondary CTA label
+- Footer text
+- Accent color
+- Default theme
+- Availability badge
+- Homepage section visibility
+- Homepage section order
+- AI assistant enabled/disabled
+- AI greeting message
+- AI fallback message
+
+---
+
+### 9.9 Backup and Restore
+
+Route:
+
+```txt
+/admin/backup
+```
+
+Features:
+
+- Export all content as JSON.
+- Import content from JSON.
+- Choose overwrite or merge behavior if possible.
+
+Collections to export:
+
+- Profile
+- Projects
+- Skills
+- Settings
+
+This is important because the project uses free tools and should be easy to recover.
+
+---
+
+## 10. Drag-and-Drop Project Reordering
+
+This is a core requirement.
+
+---
+
+### 10.1 Admin Behavior
+
+The project list should allow dragging projects into a new order.
+
+Each project should have:
+
+- Drag handle
+- Visual dragging state
+- Drop indicator
+- Smooth animation
+
+After drag ends:
+
+- Update UI immediately.
+- Send new order to API.
+- Show success/error toast.
+
+---
+
+### 10.2 Database Behavior
+
+Each project has:
+
+```json
+{
+  "order": 1
+}
+```
+
+Lower order values appear first.
+
+Example:
+
+```txt
+order 1 = first project
+order 2 = second project
+order 3 = third project
+```
+
+---
+
+### 10.3 Reorder API
+
+Endpoint:
+
+```txt
+POST /api/projects/reorder
+```
+
+Request body:
+
+```json
+{
+  "projectIds": [
+    "id-1",
+    "id-3",
+    "id-2",
+    "id-4"
+  ]
+}
+```
+
+Backend logic:
+
+1. Validate admin session.
+2. Validate project IDs.
+3. Loop through array.
+4. Update each project's `order` to its index plus one.
+5. Return updated list.
+
+Public project list should sort by:
+
+```txt
+order ascending
+```
+
+---
+
+### 10.4 Accessibility Fallback
+
+If drag-and-drop is difficult on mobile, provide:
+
+- Move up button.
+- Move down button.
+- Or a numeric order field.
+
+This ensures reordering works everywhere.
+
+---
+
+## 11. Database Design
+
+Use MongoDB with Mongoose.
+
+---
+
+### 11.1 Profile Collection
+
+Collection:
+
+```txt
+profiles
+```
+
+Schema:
+
+```json
+{
+  "_id": "main",
+  "name": "Your Name",
+  "role": "UI/UX & Web Designer",
+  "tagline": "Designing digital experiences that feel alive.",
+  "shortBio": "Short intro.",
+  "longBio": "Longer bio.",
+  "designPhilosophy": "What you believe about design.",
+  "avatarUrl": "https://cloudinary.com/...",
+  "resumeUrl": "https://cloudinary.com/...",
+  "email": "hello@example.com",
+  "location": "Your City",
+  "availability": "Open to work",
+  "socials": {
+    "github": "",
+    "linkedin": "",
+    "twitter": "",
+    "dribbble": "",
+    "behance": ""
+  },
+  "updatedAt": "Date"
+}
+```
+
+---
+
+### 11.2 Projects Collection
+
+Collection:
+
+```txt
+projects
+```
+
+Schema:
+
+```json
+{
+  "title": "Project Title",
+  "slug": "project-title",
+  "summary": "Short project description.",
+  "role": "Product Designer",
+  "year": "2025",
+  "timeline": "4 weeks",
+  "status": "published",
+  "featured": true,
+  "order": 1,
+  "thumbnailUrl": "https://cloudinary.com/...",
+  "galleryUrls": [
+    "https://cloudinary.com/..."
+  ],
+  "techStack": [
+    "Figma",
+    "Next.js",
+    "MongoDB"
+  ],
+  "tags": [
+    "UI Design",
+    "Web App"
+  ],
+  "links": {
+    "live": "",
+    "repository": ""
+  },
+  "metrics": [
+    {
+      "label": "Improved clarity",
+      "value": "Better hierarchy"
+    }
+  ],
+  "processSteps": [
+    "Discover",
+    "Design",
+    "Prototype"
+  ],
+  "caseStudyBlocks": [
+    {
+      "type": "paragraph",
+      "content": "Project overview text."
+    },
+    {
+      "type": "image",
+      "imageUrl": "https://cloudinary.com/..."
+    }
+  ],
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+Status values:
+
+```txt
+draft
+published
+```
+
+Only `published` projects appear on public site.
+
+---
+
+### 11.3 Skills Collection
+
+Collection:
+
+```txt
+skills
+```
+
+Schema:
+
+```json
+{
+  "category": "Design",
+  "items": [
+    "UI Design",
+    "UX Design",
+    "Figma",
+    "Prototyping"
+  ],
+  "order": 1,
+  "createdAt": "Date",
+  "updatedAt": "Date"
+}
+```
+
+---
+
+### 11.4 Settings Collection
+
+Collection:
+
+```txt
+settings
+```
+
+Schema:
+
+```json
+{
+  "_id": "main",
+  "theme": "dark",
+  "accentColor": "#7c3aed",
+  "hero": {
+    "headline": "Designing digital experiences that feel alive.",
+    "subtext": "I am a UI/UX and web designer building expressive digital products.",
+    "primaryCtaLabel": "View Work",
+    "secondaryCtaLabel": "Contact Me",
+    "showAvailabilityBadge": true
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "label": "Hero",
+      "visible": true,
+      "order": 1
+    },
+    {
+      "id": "featured-projects",
+      "label": "Featured Projects",
+      "visible": true,
+      "order": 2
+    },
+    {
+      "id": "projects",
+      "label": "All Projects",
+      "visible": true,
+      "order": 3
+    },
+    {
+      "id": "about",
+      "label": "About",
+      "visible": true,
+      "order": 4
+    },
+    {
+      "id": "skills",
+      "label": "Skills",
+      "visible": true,
+      "order": 5
+    },
+    {
+      "id": "contact",
+      "label": "Contact",
+      "visible": true,
+      "order": 6
+    }
+  ],
+  "footer": {
+    "text": "All rights reserved.",
+    "showAdminLink": true
+  },
+  "ai": {
+    "enabled": true,
+    "greeting": "Hi, I am the digital twin of this portfolio. Ask me anything about my work.",
+    "fallbackMessage": "My AI assistant is currently unavailable. Please explore the projects or contact me directly.",
+    "provider": "groq"
+  },
+  "seo": {
+    "title": "Your Name — UI/UX Designer",
+    "description": "Portfolio of a UI/UX and web designer.",
+    "ogImageUrl": ""
+  },
+  "updatedAt": "Date"
+}
+```
+
+---
+
+### 11.5 Optional Chat Logs Collection
+
+Collection:
+
+```txt
+chat_logs
+```
+
+Schema:
+
+```json
+{
+  "userMessage": "What projects have you built?",
+  "assistantResponse": "Here are some projects...",
+  "provider": "groq",
+  "createdAt": "Date"
+}
+```
+
+Use this only if helpful.
+
+---
+
+## 12. API Routes
+
+Create Next.js API routes.
+
+---
+
+### 12.1 Authentication
+
+```txt
+POST /api/auth/[...nextauth]
+```
+
+Handles login/logout/session.
+
+---
+
+### 12.2 Profile
+
+```txt
+GET /api/profile
+PUT /api/profile
+```
+
+Public GET returns only public profile data.
+
+PUT requires admin session.
+
+---
+
+### 12.3 Projects
+
+```txt
+GET /api/projects
+POST /api/projects
+GET /api/projects/[id]
+PUT /api/projects/[id]
+DELETE /api/projects/[id]
+POST /api/projects/reorder
+```
+
+Public GET:
+
+- Returns only published projects.
+- Sorts by `order`.
+
+Admin GET:
+
+- Returns all projects.
+- Requires session.
+
+---
+
+### 12.4 Skills
+
+```txt
+GET /api/skills
+POST /api/skills
+PUT /api/skills/[id]
+DELETE /api/skills/[id]
+POST /api/skills/reorder
+```
+
+---
+
+### 12.5 Settings
+
+```txt
+GET /api/settings
+PUT /api/settings
+```
+
+Public GET returns only safe settings.
+
+PUT requires admin session.
+
+---
+
+### 12.6 Upload
+
+```txt
+POST /api/upload
+```
+
+Purpose:
+
+Upload images to Cloudinary.
+
+Accept:
+
+- Image file
+- Folder name
+
+Return:
+
+- Secure image URL
+
+Validation:
+
+- Accept jpg, png, webp.
+- Limit file size.
+- Reject invalid types.
+
+---
+
+### 12.7 AI Chat
+
+```txt
+POST /api/ai/chat
+```
+
+Request body:
+
+```json
+{
+  "message": "What projects have you built?"
+}
+```
+
+Optional request body:
+
+```json
+{
+  "message": "Tell me about this project.",
+  "projectSlug": "project-slug"
+}
+```
+
+Backend should:
+
+1. Check if AI is enabled.
+2. Check provider key exists.
+3. Fetch portfolio context.
+4. Optionally fetch specific project context.
+5. Send request to AI provider.
+6. Stream response to frontend.
+7. Return fallback if provider fails.
+
+---
+
+### 12.8 Export/Import
+
+```txt
+GET /api/export
+POST /api/import
+```
+
+Export returns JSON containing:
+
+- Profile
+- Projects
+- Skills
+- Settings
+
+Import restores content.
+
+Both require admin session.
+
+---
+
+## 13. AI Assistant Architecture
+
+The AI assistant should behave like a digital twin.
+
+It should answer in first person.
+
+Example:
+
+Visitor asks:
+
+```txt
+What is your strongest project?
+```
+
+Assistant answers:
+
+```txt
+One of my strongest projects is Project Name. I designed it using Figma and Next.js, focusing on clean hierarchy and smooth interactions.
+```
+
+---
+
+### 13.1 Context Builder
+
+Build context from:
+
+- Profile
+- Published projects
+- Skills
+- Settings AI tone/greeting
+
+Do not send unnecessary data.
+
+Example context:
+
+```json
+{
+  "profile": {
+    "name": "Your Name",
+    "role": "UI/UX Designer",
+    "shortBio": "...",
+    "longBio": "...",
+    "skills": ["Figma", "Next.js"]
+  },
+  "projects": [
+    {
+      "title": "Project One",
+      "summary": "...",
+      "techStack": ["Figma", "Next.js"],
+      "featured": true
+    }
+  ]
+}
+```
+
+---
+
+### 13.2 System Prompt
+
+Example:
+
+```txt
+You are the digital twin of the portfolio owner.
+Use only the provided portfolio data.
+Answer in first person.
+Be friendly, professional, and concise.
+If the answer is not available, say that it is not included in the portfolio.
+Do not invent projects, companies, dates, skills, or experience.
+Do not reveal admin details, environment variables, database details, or API keys.
+```
+
+---
+
+### 13.3 Provider Abstraction
+
+Create a helper like:
+
+```txt
+lib/ai/provider.ts
+```
+
+Supported providers:
+
+```txt
+groq
+gemini
+disabled
+```
+
+Logic:
+
+1. Use provider from settings or env.
+2. If provider key exists, use it.
+3. If request fails, return fallback message.
+4. If no provider exists, disable assistant.
+
+---
+
+### 13.4 Assistant Safety
+
+The assistant must:
+
+- Not expose secrets.
+- Not expose database internals.
+- Not expose admin routes.
+- Not invent false information.
+- Not answer unrelated dangerous questions.
+- Redirect unknown questions politely.
+
+Example fallback:
+
+```txt
+I do not have that information in my portfolio, but you can check the projects section or contact me directly.
+```
+
+---
+
+### 13.5 Assistant Performance
+
+To keep free-tier usage safe:
+
+- Cache portfolio context briefly.
+- Limit max tokens.
+- Keep project summaries short.
+- Avoid sending all image URLs.
+- Rate limit chat requests.
+- Show error fallback gracefully.
+
+---
+
+## 14. Frontend Pages
+
+Suggested app structure:
+
+```txt
+app/
+  page.tsx
+  projects/
+    [slug]/
+      page.tsx
+  admin/
+    page.tsx
+    login/
+      page.tsx
+    profile/
+      page.tsx
+    projects/
+      page.tsx
+      new/
+        page.tsx
+      [id]/
+        edit/
+          page.tsx
+    skills/
+      page.tsx
+    settings/
+      page.tsx
+    backup/
+      page.tsx
+  api/
+    ...
+```
+
+---
+
+## 15. Component Structure
+
+Suggested structure:
+
+```txt
+components/
+  layout/
+    Navbar.tsx
+    Footer.tsx
+    AdminLayout.tsx
+    PageTransition.tsx
+  home/
+    Hero.tsx
+    FeaturedProjects.tsx
+    ProjectGrid.tsx
+    AboutPreview.tsx
+    SkillsSection.tsx
+    ContactSection.tsx
+  projects/
+    ProjectCard.tsx
+    ProjectMeta.tsx
+    ProjectGallery.tsx
+    TechStackTags.tsx
+    CaseStudyRenderer.tsx
+    BeforeAfterSlider.tsx
+    ProcessTimeline.tsx
+    MetricCard.tsx
+  admin/
+    ProjectList.tsx
+    SortableProjectRow.tsx
+    ProjectForm.tsx
+    ProfileForm.tsx
+    SkillsManager.tsx
+    SettingsForm.tsx
+    BackupManager.tsx
+    BlockEditor.tsx
+    TagInput.tsx
+    ImageUpload.tsx
+  ai/
+    AssistantOrb.tsx
+    ChatPanel.tsx
+    ChatMessage.tsx
+    SuggestedQuestions.tsx
+    TypingIndicator.tsx
+  command/
+    CommandPalette.tsx
+  ui/
+    Button.tsx
+    Input.tsx
+    Textarea.tsx
+    Select.tsx
+    Toggle.tsx
+    Badge.tsx
+    Card.tsx
+    Modal.tsx
+    Toast.tsx
+    Skeleton.tsx
+    EmptyState.tsx
+  motion/
+    MagneticButton.tsx
+    FadeIn.tsx
+    StaggerContainer.tsx
+    TiltCard.tsx
+    CustomCursor.tsx
+```
+
+---
+
+## 16. Environment Variables
+
+Use `.env.local` locally.
+
+```env
+# Site
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
+
+# MongoDB
+MONGODB_URI=your_mongodb_connection_string
+MONGODB_DB_NAME=portfolio
+
+# NextAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=generate_a_long_random_secret
+
+# Admin credentials
+ADMIN_EMAIL=your_email@example.com
+ADMIN_PASSWORD=your_admin_password
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+
+# AI provider
+AI_PROVIDER=groq
+
+# Groq
+GROQ_API_KEY=your_groq_api_key
+
+# Gemini fallback
+GEMINI_API_KEY=your_gemini_api_key
+
+# Optional OpenRouter fallback
+OPENROUTER_API_KEY=your_openrouter_api_key
+```
+
+In production, add these in Vercel.
+
+---
+
+## 17. Implementation Phases
+
+---
+
+### Phase 0: Create Free Accounts
+
+Tasks:
+
+- Create GitHub account.
+- Create MongoDB Atlas free cluster.
+- Create Cloudinary account.
+- Create Vercel account.
+- Create Groq or Google Gemini API key.
+- Store all keys safely.
+
+Acceptance:
+
+- All required free accounts exist.
+- API keys are available locally.
+
+---
+
+### Phase 1: Project Setup
+
+Tasks:
+
+- Create Next.js app.
+- Enable TypeScript.
+- Install Tailwind CSS.
+- Install Framer Motion.
+- Install Lenis.
+- Install Mongoose.
+- Install NextAuth.
+- Install dnd-kit.
+- Create folder structure.
+- Add fonts.
+- Add theme system.
+- Add basic layout.
+
+Acceptance:
+
+- App runs locally.
+- Tailwind works.
+- Theme toggle works.
+- Fonts load correctly.
+
+---
+
+### Phase 2: Database Setup
+
+Tasks:
+
+- Connect MongoDB using Mongoose.
+- Create cached connection helper.
+- Create models:
+  - Profile
+  - Project
+  - Skill
+  - Settings
+- Create seed script.
+
+Acceptance:
+
+- Database connects.
+- Seed data appears.
+- No connection leak errors.
+
+---
+
+### Phase 3: Public Read API
+
+Tasks:
+
+- Create `/api/profile`.
+- Create `/api/projects`.
+- Create `/api/skills`.
+- Create `/api/settings`.
+- Return only public data.
+- Sort projects by `order`.
+
+Acceptance:
+
+- Public data loads.
+- Draft projects are hidden.
+- Data is structured correctly.
+
+---
+
+### Phase 4: Admin Authentication
+
+Tasks:
+
+- Set up NextAuth.
+- Use credentials provider.
+- Protect `/admin`.
+- Create login page.
+- Add logout.
+- Protect admin API mutations.
+
+Acceptance:
+
+- Admin can log in.
+- Public users cannot access admin.
+- API mutations are protected.
+
+---
+
+### Phase 5: Admin Profile Editor
+
+Tasks:
+
+- Build profile form.
+- Add image upload.
+- Connect to API.
+- Save to MongoDB.
+
+Acceptance:
+
+- Profile updates reflect on public site.
+- Image upload works.
+- Validation works.
+
+---
+
+### Phase 6: Project CRUD
+
+Tasks:
+
+- Build project list page.
+- Build project form.
+- Add create project.
+- Add edit project.
+- Add delete project.
+- Add thumbnail upload.
+- Add gallery upload.
+- Add tag input.
+- Add featured toggle.
+- Add publish toggle.
+
+Acceptance:
+
+- Projects can be created.
+- Projects can be edited.
+- Projects can be deleted.
+- Images upload correctly.
+
+---
+
+### Phase 7: Drag-and-Drop Reordering
+
+Tasks:
+
+- Add dnd-kit to project list.
+- Add drag handles.
+- Add sortable rows.
+- Update order optimistically.
+- Create reorder API.
+- Persist order to MongoDB.
+- Add fallback move up/down buttons.
+
+Acceptance:
+
+- Drag-and-drop works.
+- Order persists after refresh.
+- Public site respects new order.
+
+---
+
+### Phase 8: Case Study Block Editor
+
+Tasks:
+
+- Create block editor component.
+- Support block types:
+  - Heading
+  - Paragraph
+  - Image
+  - Gallery
+  - Quote
+  - Metric
+  - Link
+- Add block reorder.
+- Add block delete.
+- Save blocks to project document.
+- Render blocks on project page.
+
+Acceptance:
+
+- Project pages can be built from blocks.
+- No code edits are needed to change case study content.
+- Blocks render beautifully on public site.
+
+---
+
+### Phase 9: Public Homepage
+
+Tasks:
+
+- Build Navbar.
+- Build Hero.
+- Build Featured Projects.
+- Build All Projects.
+- Build About preview.
+- Build Skills.
+- Build Contact.
+- Build Footer.
+- Add smooth scroll.
+- Add scroll reveal animations.
+- Add responsive design.
+
+Acceptance:
+
+- Homepage uses dynamic data.
+- Sections can be toggled if settings support it.
+- Design feels premium.
+
+---
+
+### Phase 10: Project Detail Page
+
+Tasks:
+
+- Build dynamic project page.
+- Fetch project by slug.
+- Render hero.
+- Render meta info.
+- Render case study blocks.
+- Render gallery.
+- Add previous/next project navigation.
+- Return 404 for unpublished projects.
+
+Acceptance:
+
+- Project pages look polished.
+- Blocks render correctly.
+- Unpublished projects are inaccessible.
+
+---
+
+### Phase 11: Magic UI Layer
+
+Tasks:
+
+- Add custom cursor.
+- Add magnetic buttons.
+- Add project card tilt.
+- Add page transitions.
+- Add command palette.
+- Add animated skill marquee.
+- Add easter egg mode.
+- Add loading skeletons.
+- Add reduced motion support.
+
+Acceptance:
+
+- Interactions are smooth.
+- Mobile remains usable.
+- Animations do not hurt performance.
+
+---
+
+### Phase 12: AI Assistant
+
+Tasks:
+
+- Build assistant orb.
+- Build chat panel.
+- Build suggested questions.
+- Create `/api/ai/chat`.
+- Build portfolio context.
+- Add provider abstraction.
+- Add streaming response.
+- Add loading and error states.
+- Add fallback message.
+- Optionally add project-specific assistant prompt.
+
+Acceptance:
+
+- Assistant answers using portfolio data.
+- Assistant handles errors gracefully.
+- No secrets are exposed.
+
+---
+
+### Phase 13: Backup and Restore
+
+Tasks:
+
+- Create export API.
+- Create import API.
+- Build admin backup page.
+- Allow JSON download.
+- Allow JSON upload.
+- Add confirmation dialog.
+
+Acceptance:
+
+- Owner can download content backup.
+- Owner can restore content.
+- Invalid imports fail safely.
+
+---
+
+### Phase 14: Performance, Accessibility, SEO
+
+Tasks:
+
+- Optimize images.
+- Lazy load heavy components.
+- Add alt text.
+- Add keyboard navigation.
+- Check color contrast.
+- Add meta titles.
+- Add meta descriptions.
+- Add Open Graph data.
+- Respect reduced motion.
+- Test mobile performance.
+
+Acceptance:
+
+- Good Lighthouse scores.
+- Keyboard navigation works.
+- Mobile experience is smooth.
+
+---
+
+### Phase 15: Deployment
+
+Tasks:
+
+- Push code to GitHub.
+- Create Vercel project.
+- Connect repository.
+- Add environment variables.
+- Build production version.
+- Test admin panel.
+- Test uploads.
+- Test drag-and-drop.
+- Test AI assistant.
+- Test mobile.
+- Fix deployment errors.
+
+Acceptance:
+
+- Website is live.
+- Admin works online.
+- Database updates reflect publicly.
+- No secrets are exposed.
+
+---
+
+## 18. Suggested Folder Structure
+
+```txt
+/
+  app/
+    page.tsx
+    layout.tsx
+    projects/
+      [slug]/
+        page.tsx
+    admin/
+      page.tsx
+      login/
+        page.tsx
+      profile/
+        page.tsx
+      projects/
+        page.tsx
+        new/
+          page.tsx
+        [id]/
+          edit/
+            page.tsx
+      skills/
+        page.tsx
+      settings/
+        page.tsx
+      backup/
+        page.tsx
+    api/
+      auth/
+        [...nextauth]/
+          route.ts
+      profile/
+        route.ts
+      projects/
+        route.ts
+        reorder/
+          route.ts
+        [id]/
+          route.ts
+      skills/
+        route.ts
+        reorder/
+          route.ts
+        [id]/
+          route.ts
+      settings/
+        route.ts
+      upload/
+        route.ts
+      ai/
+        chat/
+          route.ts
+      export/
+        route.ts
+      import/
+        route.ts
+  components/
+    layout/
+    home/
+    projects/
+    admin/
+    ai/
+    command/
+    ui/
+    motion/
+  lib/
+    db.ts
+    auth.ts
+    cloudinary.ts
+    ai.ts
+    utils.ts
+    validators.ts
+  models/
+    Profile.ts
+    Project.ts
+    Skill.ts
+    Settings.ts
+  types/
+    index.ts
+  styles/
+    globals.css
+  scripts/
+    seed.ts
+```
+
+---
+
+## 19. Technical Rules for the Coding Agent
+
+The coding agent must follow these rules:
+
+- Use TypeScript.
+- Do not hardcode portfolio content in components.
+- Fetch dynamic content from MongoDB.
+- Keep components modular.
+- Use server components where possible.
+- Use client components only when needed.
+- Validate all forms.
+- Handle loading states.
+- Handle error states.
+- Handle empty states.
+- Protect admin routes.
+- Protect admin API mutations.
+- Do not expose secrets to client.
+- Do not store image binaries in MongoDB.
+- Use Cloudinary URLs for images.
+- Ensure project slugs are unique.
+- Ensure project order is reliable.
+- Ensure mobile responsiveness.
+- Prefer simple, stable solutions over unnecessary complexity.
+- If forced to choose between flashy and reliable, choose reliable.
+
+---
+
+## 20. Security Rules
+
+The app must:
+
+- Require authentication for admin pages.
+- Require authentication for admin API mutations.
+- Never expose MongoDB URI to client.
+- Never expose Cloudinary secret to client.
+- Never expose AI API key to client.
+- Validate uploaded files.
+- Limit upload file size.
+- Sanitize inputs.
+- Prevent duplicate slugs.
+- Prevent unauthorized content changes.
+- Add basic rate limiting to AI chat.
+- Avoid logging secrets.
+
+---
+
+## 21. Mobile Requirements
+
+The portfolio must work beautifully on mobile.
+
+Requirements:
+
+- Responsive typography.
+- Touch-friendly buttons.
+- Simplified animations.
+- No custom cursor on touch devices.
+- Drag-and-drop fallback controls.
+- Chat panel usable on small screens.
+- Admin forms usable on mobile.
+- Images optimized for mobile.
+
+---
+
+## 22. Accessibility Requirements
+
+The website should support:
+
+- Keyboard navigation.
+- Visible focus states.
+- Alt text for meaningful images.
+- Semantic HTML.
+- Proper heading order.
+- Accessible form labels.
+- Accessible drag-and-drop fallback.
+- Reduced motion support.
+
+Use:
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  /* disable or simplify animations */
+}
+```
+
+---
+
+## 23. SEO Requirements
+
+Each page should include:
+
+- Title
+- Description
+- Canonical URL if needed
+- Open Graph data
+
+Project pages should dynamically generate:
+
+```txt
+Title: Project Name | Portfolio
+Description: Project short summary
+```
+
+Homepage should use profile and settings data for SEO.
+
+---
+
+## 24. Testing Checklist
+
+Before considering the project complete, test:
+
+### Public Site
+
+- Homepage loads.
+- Hero content loads from database.
+- Featured projects appear.
+- All projects appear in correct order.
+- Project detail pages load.
+- Draft projects are hidden.
+- Skills load.
+- About loads.
+- Contact links work.
+- Theme toggle works.
+- Mobile layout works.
+- Animations are smooth.
+
+---
+
+### Admin Panel
+
+- Admin login works.
+- Admin logout works.
+- Unauthorized users cannot access admin.
+- Profile editing works.
+- Project creation works.
+- Project editing works.
+- Project deletion works.
+- Image upload works.
+- Featured toggle works.
+- Publish toggle works.
+- Drag-and-drop reordering works.
+- New order persists after refresh.
+- Skills editing works.
+- Settings editing works.
+- Backup export works.
+- Backup import works.
+
+---
+
+### AI Assistant
+
+- Assistant appears when enabled.
+- Assistant hides when disabled.
+- Assistant answers using portfolio data.
+- Assistant does not invent false data.
+- Assistant shows fallback on error.
+- Assistant does not expose secrets.
+- Chat works on mobile.
+
+---
+
+## 25. Definition of Done
+
+The project is done when:
+
+- The portfolio is live.
+- It looks premium and unique.
+- It is fully responsive.
+- The owner can edit all major content from admin.
+- The owner can add projects without code.
+- The owner can reorder projects by drag and drop.
+- The public website updates after saving.
+- The AI assistant can answer portfolio-related questions.
+- The project uses only free resources.
+- The codebase is organized.
+- There are no exposed secrets.
+- The website is fast enough and accessible enough for real use.
+
+---
+
+## 26. MVP Priority
+
+If time becomes limited, build in this order:
+
+1. Next.js setup.
+2. MongoDB connection and models.
+3. Public homepage with dynamic data.
+4. Admin login.
+5. Profile editor.
+6. Project CRUD.
+7. Drag-and-drop project reordering.
+8. Project detail page.
+9. Premium UI polish.
+10. AI assistant.
+11. Backup/export.
+12. Deployment.
+
+---
+
+## 27. Future Expansion Ideas
+
+After MVP, possible additions:
+
+- Blog/articles.
+- Testimonials.
+- Resume download tracking.
+- Contact form submissions.
+- Analytics dashboard.
+- Multiple themes.
+- Custom page builder.
+- Project categories.
+- Project filters.
+- Client feedback collection.
+- AI voice mode.
+- Admin activity log.
+- Automated sitemap generation.
+- RSS feed.
+- Case study templates.
+
+---
+
+## 28. Final Creative Direction
+
+This portfolio should not simply say:
+
+```txt
+I can design websites.
+```
+
+It should prove it through:
+
+- Flexibility
+- Motion
+- Clarity
+- Interaction
+- Intelligence
+- Maintainability
+- Visual polish
+
+The website itself is the strongest portfolio piece.
+
+It should feel like a product that was carefully designed, thoughtfully engineered, and built to evolve.
