@@ -99,24 +99,33 @@ export async function generateAIResponse(
 
   // 1. Try Groq (Llama 3.3 70B Versatile, free tier)
   if ((preferredProvider === 'groq' || !geminiKey) && groqKey) {
-    try {
-      const groq = new Groq({ apiKey: groqKey });
-      const completion = await groq.chat.completions.create({
-        model: 'llama-3.3-70b-versatile',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userMessage },
-        ],
-        temperature: 0.6,
-        max_tokens: 512,
-      });
+    const candidateModels = [
+      'openai/gpt-oss-120b',
+      'qwen/qwen3.8-27b',
+      'llama-3.3-70b-versatile',
+      'llama-3.1-8b-instant',
+    ];
 
-      const reply = completion.choices[0]?.message?.content;
-      if (reply) {
-        return { text: reply, provider: 'groq/llama-3.3-70b' };
+    const groq = new Groq({ apiKey: groqKey });
+    for (const modelId of candidateModels) {
+      try {
+        const completion = await groq.chat.completions.create({
+          model: modelId,
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userMessage },
+          ],
+          temperature: 0.6,
+          max_tokens: 512,
+        });
+
+        const reply = completion.choices[0]?.message?.content;
+        if (reply) {
+          return { text: reply, provider: `groq/${modelId}` };
+        }
+      } catch (error) {
+        console.warn(`Groq generation failed for model ${modelId}:`, error);
       }
-    } catch (error) {
-      console.warn('Groq generation error, attempting fallback:', error);
     }
   }
 

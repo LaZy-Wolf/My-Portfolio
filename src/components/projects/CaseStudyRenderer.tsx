@@ -61,6 +61,32 @@ export function CaseStudyRenderer({ blocks }: CaseStudyRendererProps) {
               </figure>
             );
 
+          case 'gallery':
+            if (!block.galleryUrls || block.galleryUrls.length === 0) return null;
+            return (
+              <div key={block.id || idx} className="space-y-3">
+                <div className={`grid grid-cols-1 ${block.galleryUrls.length > 1 ? 'sm:grid-cols-2' : ''} gap-4`}>
+                  {block.galleryUrls.map((gUrl, gIdx) => (
+                    <div key={gIdx} className="relative aspect-video w-full border border-telemetry-border bg-substrate-surface overflow-hidden">
+                      <Image
+                        src={gUrl}
+                        alt={`${block.caption || 'Gallery asset'} ${gIdx + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1200px) 100vw, 400px"
+                        unoptimized={gUrl.startsWith('data:')}
+                      />
+                    </div>
+                  ))}
+                </div>
+                {block.caption && (
+                  <p className="text-xs font-mono text-telemetry-muted">
+                    {block.caption}
+                  </p>
+                )}
+              </div>
+            );
+
           case 'quote':
             return (
               <div

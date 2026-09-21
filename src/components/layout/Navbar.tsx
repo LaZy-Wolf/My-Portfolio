@@ -53,14 +53,26 @@ export function Navbar({
         <div className="flex items-center gap-3">
           <span className="text-white font-bold">{time || '--:--:-- UTC'}</span>
           <span className="text-telemetry-faint">|</span>
-          <span className="text-telemetry-muted hidden md:inline">ZURICH // UTC+1</span>
+          <span className="text-telemetry-muted hidden md:inline">HYDERABAD // UTC+5:30</span>
         </div>
       </div>
 
       {/* Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
         {/* Callsign / Brand */}
-        <Link href="/" className="flex items-center gap-2 group">
+        <button
+          type="button"
+          onClick={() => {
+            const current = Number(sessionStorage.getItem('egg_clicks') || 0) + 1;
+            sessionStorage.setItem('egg_clicks', String(current));
+            if (current >= 5) {
+              sessionStorage.setItem('egg_clicks', '0');
+              window.dispatchEvent(new KeyboardEvent('keydown', { key: '~' }));
+            }
+          }}
+          className="flex items-center gap-2 group text-left cursor-pointer focus:outline-none"
+          title="Operator Callsign [Click 5 times for Overclock Mode]"
+        >
           <div className="w-7 h-7 bg-substrate-surface border border-telemetry-border group-hover:border-signal flex items-center justify-center transition-colors">
             <Terminal className="w-4 h-4 text-signal" />
           </div>
@@ -73,7 +85,7 @@ export function Navbar({
               {role}
             </div>
           </div>
-        </Link>
+        </button>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider">

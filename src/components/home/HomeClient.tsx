@@ -15,6 +15,8 @@ import { ContactSection } from '@/components/home/ContactSection';
 import { Footer } from '@/components/layout/Footer';
 import { CommandPalette } from '@/components/ui/CommandPalette';
 import { AssistantOrb } from '@/components/ai/AssistantOrb';
+import { CustomCursor } from '@/components/ui/CustomCursor';
+import { Zap } from 'lucide-react';
 
 interface HomeClientProps {
   profile: IProfile;
@@ -30,11 +32,23 @@ export function HomeClient({
   settings,
 }: HomeClientProps) {
   const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [easterEggActive, setEasterEggActive] = useState(false);
 
   useEffect(() => {
     const handleOpen = () => setCommandPaletteOpen(true);
     window.addEventListener('open-command-palette', handleOpen);
     return () => window.removeEventListener('open-command-palette', handleOpen);
+  }, []);
+
+  // Easter Egg keyboard shortcut: press `~` (backtick/tilde)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '`' || e.key === '~') {
+        setEasterEggActive((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
   // Section visibility mapping from settings
@@ -44,10 +58,22 @@ export function HomeClient({
   };
 
   return (
-    <div className="min-h-[100dvh] flex flex-col bg-substrate text-white">
+    <div className={`min-h-[100dvh] flex flex-col bg-substrate text-white transition-colors duration-500 ${easterEggActive ? 'matrix-overclock ring-1 ring-terminal' : ''}`}>
+      {/* Easter Egg Overlay Banner */}
+      {easterEggActive && (
+        <div className="bg-terminal text-black font-mono text-[11px] font-black uppercase tracking-widest py-1 px-4 text-center sticky top-0 z-[100] flex items-center justify-center gap-2 animate-pulse">
+          <Zap className="w-3.5 h-3.5 fill-black" />
+          <span>[ OVERCLOCK PROTOCOL ACTIVE // HIGH FREQUENCY MATRIX TELEMETRY // PRESS ~ TO EXIT ]</span>
+          <Zap className="w-3.5 h-3.5 fill-black" />
+        </div>
+      )}
+
+      {/* Desktop Custom Cursor */}
+      <CustomCursor />
+
       <Navbar
         name={profile.name}
-        role={profile.role}
+        role={easterEggActive ? 'OVERCLOCKED ARCHITECT' : profile.role}
         onOpenCommandPalette={() => setCommandPaletteOpen(true)}
       />
 
