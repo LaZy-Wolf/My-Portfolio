@@ -1,4 +1,4 @@
-import { Mail, ArrowUpRight, Clock, ShieldCheck } from 'lucide-react';
+import { Mail, Phone, ArrowUpRight, Clock, ShieldCheck, MapPin } from 'lucide-react';
 import type { IProfile } from '@/models/Profile';
 
 interface ContactSectionProps {
@@ -6,6 +6,9 @@ interface ContactSectionProps {
 }
 
 export function ContactSection({ profile }: ContactSectionProps) {
+  const phone = profile.phone || '+91 70754 00204';
+  const cleanPhone = phone.replace(/[^0-9+]/g, '');
+
   return (
     <section id="contact" className="border-b border-telemetry-border px-4 sm:px-8 py-16 sm:py-24 max-w-7xl mx-auto w-full space-y-12">
       {/* Section Header */}
@@ -14,7 +17,7 @@ export function ContactSection({ profile }: ContactSectionProps) {
           [ SECTOR 06 // TRANSMISSION GATEWAY ]
         </span>
         <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mt-1">
-          Initiate Transmission
+          Initiate Direct Transmission
         </h2>
       </div>
 
@@ -24,25 +27,33 @@ export function ContactSection({ profile }: ContactSectionProps) {
           <div className="space-y-4">
             <div className="inline-flex items-center gap-2 border border-terminal/40 bg-terminal/10 px-3 py-1 text-terminal font-mono text-xs uppercase">
               <span className="w-2 h-2 rounded-full bg-terminal animate-ping" />
-              {profile.availability || 'OPEN TO ARCHITECTURAL CONSULTING & CONTRACT'}
+              {profile.availability || 'OPEN TO PRODUCTION GENAI ROLES & CONTRACTS'}
             </div>
 
             <h3 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-none">
-              Let&rsquo;s Engineer Something Formidable.
+              Let&rsquo;s Build Formidable AI Systems.
             </h3>
 
             <p className="text-sm font-mono text-telemetry-muted max-w-xl leading-relaxed">
-              Available for technical leadership, high-concurrency systems design, industrial design systems, and full-stack web products. Direct email is monitored round the clock.
+              Available for GenAI systems engineering, real-time voice AI development, LangGraph multi-agent orchestration, and production-grade full-stack architectures. Direct channels are active.
             </p>
           </div>
 
           <div className="pt-6 border-t border-telemetry-border flex flex-wrap items-center gap-4">
             <a
               href={`mailto:${profile.email}`}
-              className="brutalist-btn brutalist-btn-accent px-8 py-4 text-xs font-mono flex items-center gap-3 font-bold"
+              className="brutalist-btn brutalist-btn-accent px-6 py-4 text-xs font-mono flex items-center gap-3 font-bold"
             >
               <Mail className="w-4 h-4" />
-              <span>TRANSMIT DIRECT DISPATCH: {profile.email.toUpperCase()}</span>
+              <span>EMAIL: {profile.email.toUpperCase()}</span>
+            </a>
+
+            <a
+              href={`tel:${cleanPhone}`}
+              className="brutalist-btn px-6 py-4 text-xs font-mono flex items-center gap-3 font-bold"
+            >
+              <Phone className="w-4 h-4 text-signal" />
+              <span>CALL: {phone}</span>
             </a>
           </div>
         </div>
@@ -53,9 +64,9 @@ export function ContactSection({ profile }: ContactSectionProps) {
             <div className="flex items-center justify-between border-b border-telemetry-border/40 pb-3">
               <span className="text-telemetry-muted flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-signal" />
-                RESPONSIVENESS:
+                RESPONSE WINDOW:
               </span>
-              <span className="text-white font-bold">&lt; 12 HOURS</span>
+              <span className="text-white font-bold">&lt; 4 HOURS</span>
             </div>
 
             <div className="flex items-center justify-between border-b border-telemetry-border/40 pb-3">
@@ -67,12 +78,15 @@ export function ContactSection({ profile }: ContactSectionProps) {
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-telemetry-muted">LOCATION:</span>
-              <span className="text-white">{profile.location || 'ZURICH // REMOTE'}</span>
+              <span className="text-telemetry-muted flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-signal" />
+                COORDINATES:
+              </span>
+              <span className="text-white font-bold">{profile.location || 'HYDERABAD, INDIA'}</span>
             </div>
           </div>
 
-          {/* Social Links */}
+          {/* Social Channels */}
           <div className="space-y-2 pt-4 border-t border-telemetry-border/40">
             <span className="telemetry-tag text-telemetry-muted block mb-1">
               NETWORK CHANNELS:
@@ -85,9 +99,9 @@ export function ContactSection({ profile }: ContactSectionProps) {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between py-1.5 px-2 border border-telemetry-border hover:border-signal bg-substrate font-mono text-xs uppercase text-telemetry-muted hover:text-white transition-colors group"
+                  className="flex items-center justify-between py-2 px-3 border border-telemetry-border hover:border-signal bg-substrate font-mono text-xs uppercase text-telemetry-muted hover:text-white transition-colors group"
                 >
-                  <span>{key}</span>
+                  <span className="font-bold">{key}</span>
                   <ArrowUpRight className="w-3.5 h-3.5 group-hover:text-signal" />
                 </a>
               );

@@ -103,6 +103,17 @@ export function ProfileForm({ initialProfile }: { initialProfile: IProfile }) {
             </div>
 
             <div>
+              <label className="telemetry-tag text-telemetry-muted">Direct Phone / Hotline</label>
+              <input
+                type="text"
+                value={formData.phone || ''}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                placeholder="+91 70754 00204"
+                className="w-full bg-substrate border border-telemetry-border px-3 py-2 text-sm font-mono text-white focus:border-signal outline-none"
+              />
+            </div>
+
+            <div>
               <label className="telemetry-tag text-telemetry-muted">Location & Timezone</label>
               <input
                 type="text"

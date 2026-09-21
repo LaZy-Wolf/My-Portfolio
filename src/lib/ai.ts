@@ -1,16 +1,19 @@
 import Groq from 'groq-sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import type { IProfile } from '@/models/Profile';
+import type { IProject } from '@/models/Project';
+import type { ISkill } from '@/models/Skill';
 
 interface ChatContext {
-  profile: Record<string, unknown>;
-  projects: Array<Record<string, unknown>>;
-  skills: Array<Record<string, unknown>>;
+  profile: IProfile | Record<string, any>;
+  projects: Array<IProject | Record<string, any>>;
+  skills: Array<ISkill | Record<string, any>>;
 }
 
 export function buildSystemPrompt(context: ChatContext): string {
-  const profile = context.profile;
-  const projects = context.projects;
-  const skills = context.skills;
+  const profile = context.profile as any;
+  const projects = context.projects as any[];
+  const skills = context.skills as any[];
 
   return `You are the digital twin AI assistant of ${profile.name || 'the portfolio owner'}, a ${profile.role || 'Software Architect'}.
 Your duty is to answer visitor inquiries with utmost accuracy using ONLY the portfolio data provided below.
@@ -32,6 +35,35 @@ PORTFOLIO PROFILE TELEMETRY:
 - Location: ${profile.location}
 - Availability: ${profile.availability}
 - Email: ${profile.email}
+- Phone: ${profile.phone || '+91 70754 00204'}
+- GitHub: ${profile.socials?.github || 'https://github.com/LaZy-Wolf'}
+- LinkedIn: ${profile.socials?.linkedin || 'https://www.linkedin.com/in/akhil-kumar9/'}
+
+PRODUCTION WORK EXPERIENCE:
+${Array.isArray(profile.experience) && profile.experience.length > 0
+  ? profile.experience
+      .map(
+        (e: any) =>
+          `• ${e.role} at ${e.company} (${e.period} - ${e.location})\n  Accomplishments: ${Array.isArray(e.points) ? e.points.join(' | ') : ''}`
+      )
+      .join('\n\n')
+  : '• GenAI Full-Stack Engineer Intern at Allcognix AI (Nov 2025 – Present)'}
+
+ACADEMIC BACKGROUND:
+${Array.isArray(profile.education) && profile.education.length > 0
+  ? profile.education
+      .map(
+        (ed: any) =>
+          `• ${ed.degree} from ${ed.institution} (${ed.period}) - CGPA: ${ed.cgpa}. Coursework: ${ed.coursework}`
+      )
+      .join('\n')
+  : '• B.Tech in CSE (AI & ML) at Malla Reddy University (2022 - 2026, CGPA 8.6/10)'}
+
+ACHIEVEMENTS & HONORS:
+${Array.isArray(profile.achievements) ? profile.achievements.map((a: any) => `• ${a}`).join('\n') : ''}
+
+CERTIFICATIONS:
+${Array.isArray(profile.certifications) ? profile.certifications.map((c: any) => `• ${c}`).join('\n') : ''}
 
 PROJECTS INVENTORY:
 ${projects
@@ -41,7 +73,8 @@ ${projects
    - Summary: ${p.summary}
    - Stack: ${Array.isArray(p.techStack) ? p.techStack.join(', ') : ''}
    - Role: ${p.role}
-   - Metrics: ${Array.isArray(p.metrics) ? p.metrics.map((m: any) => `${m.label}: ${m.value}`).join(' | ') : 'N/A'}`
+   - Metrics: ${Array.isArray(p.metrics) ? p.metrics.map((m: any) => `${m.label}: ${m.value}`).join(' | ') : 'N/A'}
+   - Repository: ${p.links?.repository || ''}`
   )
   .join('\n\n')}
 

@@ -9,7 +9,7 @@ interface FooterProps {
   name?: string;
 }
 
-export function Footer({ settings, name = 'Alex Vance' }: FooterProps) {
+export function Footer({ settings, name = 'Gugulothu Akhil Kumar' }: FooterProps) {
   const footerText = settings?.footer?.text || 'TELEMETRY ENGINE ACTIVE // ZERO DOWNTIME';
   const showAdminLink = settings?.footer?.showAdminLink ?? true;
 

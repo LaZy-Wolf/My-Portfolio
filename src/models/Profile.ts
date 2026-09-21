@@ -1,5 +1,21 @@
 import mongoose, { Schema, Model } from 'mongoose';
 
+export interface IExperience {
+  role: string;
+  company: string;
+  location: string;
+  period: string;
+  points: string[];
+}
+
+export interface IEducation {
+  degree: string;
+  institution: string;
+  period: string;
+  cgpa: string;
+  coursework: string;
+}
+
 export interface IProfile {
   _id?: string;
   name: string;
@@ -11,6 +27,7 @@ export interface IProfile {
   avatarUrl: string;
   resumeUrl: string;
   email: string;
+  phone?: string;
   location: string;
   availability: string;
   socials: {
@@ -20,6 +37,10 @@ export interface IProfile {
     dribbble: string;
     behance: string;
   };
+  experience?: IExperience[];
+  education?: IEducation[];
+  achievements?: string[];
+  certifications?: string[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -36,6 +57,7 @@ const ProfileSchema = new Schema<IProfile>(
     avatarUrl: { type: String, default: '' },
     resumeUrl: { type: String, default: '' },
     email: { type: String, required: true },
+    phone: { type: String, default: '' },
     location: { type: String, default: '' },
     availability: { type: String, default: 'Available for hire & contract' },
     socials: {
@@ -45,6 +67,10 @@ const ProfileSchema = new Schema<IProfile>(
       dribbble: { type: String, default: '' },
       behance: { type: String, default: '' },
     },
+    experience: { type: [Schema.Types.Mixed], default: [] },
+    education: { type: [Schema.Types.Mixed], default: [] },
+    achievements: { type: [String], default: [] },
+    certifications: { type: [String], default: [] },
   },
   {
     timestamps: true,

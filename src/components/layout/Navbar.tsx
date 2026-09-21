@@ -11,8 +11,8 @@ interface NavbarProps {
 }
 
 export function Navbar({
-  name = 'ALEX VANCE',
-  role = 'SYSTEMS ARCHITECT',
+  name = 'GUGULOTHU AKHIL KUMAR',
+  role = 'AI & FULL-STACK ENGINEER',
   onOpenCommandPalette,
 }: NavbarProps) {
   const [time, setTime] = useState<string>('');

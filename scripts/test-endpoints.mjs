@@ -6,7 +6,7 @@ async function testEndpoints() {
     'http://localhost:3000/api/skills',
     'http://localhost:3000/api/settings',
     'http://localhost:3000/api/export',
-    'http://localhost:3000/projects/chronos-realtime-telemetry',
+    'http://localhost:3000/projects/sonar-realtime-voice-agent',
     'http://localhost:3000/robots.txt',
     'http://localhost:3000/sitemap.xml',
   ];
