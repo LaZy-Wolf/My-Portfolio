@@ -82,7 +82,8 @@
               "Mutation-tested: the app was broken on purpose five times and each break failed on the exact assertion; the CI gate exits 0, 1 or 2"
             ]
           }
-        ]
+        ],
+        "url": "https://allcognix.com/"
       }
     ],
     "education": [

@@ -84,7 +84,11 @@ export function Hero({ profile, settings, projects }: { profile: IProfile; setti
                 </span>
                 <span>
                   {current.role} at{' '}
-                  <a href="#experience" className="font-medium text-ink underline decoration-rule-strong underline-offset-4 hover:decoration-ink">
+                  <a
+                    href={current.url || '#experience'}
+                    {...(current.url ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="font-medium text-ink underline decoration-rule-strong underline-offset-4 hover:decoration-ink"
+                  >
                     {current.company}
                   </a>
                 </span>
@@ -191,7 +195,15 @@ export function Industry({ profile }: { profile: IProfile }) {
           </Note>
         </div>
         <p className={lead}>
-          The products I worked on as an intern at {job.company}. They are {job.company}&rsquo;s products; the links open
+          The products I worked on as an intern at{' '}
+          {job.url ? (
+            <a href={job.url} target="_blank" rel="noopener noreferrer" className="link-quiet text-ink">
+              {job.company}
+            </a>
+          ) : (
+            job.company
+          )}
+          . They are {job.company}&rsquo;s products; the links open
           their live sites.
         </p>
 

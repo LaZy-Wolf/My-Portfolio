@@ -5,6 +5,8 @@ export interface IExperience {
   company: string;
   location: string;
   period: string;
+  /** The company's website. */
+  url?: string;
   points: string[];
   /** Products built in this role. They belong to the employer; the page says so. */
   products?: IWorkProduct[];
