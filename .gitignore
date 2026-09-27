@@ -44,3 +44,6 @@ next-env.d.ts
 /MeMee.png
 /Akhil_Kumar_Resume.pdf
 /.claude
+
+.vercel
+.env*

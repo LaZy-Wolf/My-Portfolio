@@ -1179,3 +1179,27 @@ body::before {
     scroll-behavior: auto !important;
   }
 }
+
+/* Full-size portrait, opened from the hero. */
+.portrait-dialog {
+  position: fixed;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+  max-width: 92vw;
+}
+.portrait-dialog::backdrop {
+  background: rgb(0 0 0 / 0.72);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .portrait-dialog[open] {
+    animation: portrait-in 260ms var(--ease-out);
+  }
+  @keyframes portrait-in {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+}

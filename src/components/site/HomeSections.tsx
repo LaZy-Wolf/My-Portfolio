@@ -17,6 +17,7 @@ import { CopyEmail } from './CopyEmail';
 import { FlapValue } from './FlapValue';
 import { TransitionLink } from './TransitionLink';
 import { Note } from './Note';
+import { Portrait } from './Portrait';
 
 const h2 = 'text-[clamp(2rem,1.35rem+2.2vw,3.25rem)] font-bold leading-[1.02] tracking-[-0.03em]';
 const lead = 'mt-4 max-w-[40rem] text-[1.0625rem] leading-relaxed text-ink-2 md:text-[1.125rem]';
@@ -60,16 +61,7 @@ export function Hero({ profile, settings, projects }: { profile: IProfile; setti
       <div className={`${container} grid gap-x-12 gap-y-14 xl:grid-cols-12 xl:items-center`}>
         <div className="xl:col-span-5">
           <div className="flex items-center gap-5">
-          {profile.avatarUrl && (
-            <Image
-              src={profile.avatarUrl}
-              alt={`Portrait of ${profile.name}`}
-              width={88}
-              height={88}
-              priority
-              className="h-[5.5rem] w-[5.5rem] shrink-0 rounded-full object-cover object-top ring-1 ring-rule"
-            />
-          )}
+          {profile.avatarUrl && <Portrait src={profile.avatarUrl} name={profile.name} />}
           <ul className="space-y-2 text-[0.9375rem]">
             <li className={`${meta} text-[0.8125rem] font-semibold uppercase tracking-[0.08em] text-ink-2`}>
               <span className={dot} aria-hidden>
