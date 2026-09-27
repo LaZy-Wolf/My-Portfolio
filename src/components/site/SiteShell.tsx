@@ -26,7 +26,7 @@ export function SiteShell({ profile, settings, projects, children }: SiteShellPr
     <>
       <a
         href="#main"
-        className="sr-only z-palette rounded-full bg-ink px-4 py-2 text-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-3"
+        className="sr-only z-palette rounded-lg bg-ink px-4 py-2.5 text-sm font-semibold text-paper shadow-lg focus-visible:not-sr-only focus-visible:fixed focus-visible:left-4 focus-visible:top-[4.75rem]"
       >
         Skip to content
       </a>

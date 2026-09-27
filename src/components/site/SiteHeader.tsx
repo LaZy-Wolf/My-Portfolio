@@ -3,12 +3,13 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Moon, Search, Sun } from 'lucide-react';
+import { Menu, Moon, Sun } from 'lucide-react';
 
+// Same order as the sections on the home page.
 const LINKS = [
+  { id: 'experience', label: 'Experience' },
   { id: 'work', label: 'Work' },
   { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -19,12 +20,6 @@ export function openPalette() {
 export function SiteHeader({ name }: { name: string }) {
   const onHome = usePathname() === '/';
   const [active, setActive] = useState<string | null>(null);
-  const [isMac, setIsMac] = useState(false);
-
-  useEffect(() => {
-    setIsMac(/Mac|iPhone|iPad/.test(navigator.platform));
-  }, []);
-
   useEffect(() => {
     if (!onHome) return;
     const sections = LINKS.map((l) => document.getElementById(l.id)).filter(Boolean) as HTMLElement[];
@@ -81,15 +76,14 @@ export function SiteHeader({ name }: { name: string }) {
           </ul>
 
           <div className="flex items-center gap-2">
+            {/* Phones have no room for the links, so the menu opens the section list instead. */}
             <button
               type="button"
               onClick={openPalette}
-              title={isMac ? 'Search (⌘K)' : 'Search (Ctrl K)'}
-              className="flex h-10 items-center gap-2.5 rounded-full px-3.5 text-[0.875rem] text-ink-2 ring-1 ring-inset ring-rule-strong transition-colors hover:text-ink md:w-[15rem] md:text-ink-3"
+              className="flex h-10 items-center gap-2 rounded-full px-3.5 text-[0.875rem] text-ink-2 ring-1 ring-inset ring-rule-strong transition-colors hover:text-ink md:hidden"
             >
-              <Search className="h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden />
-              <span className="md:hidden">Menu</span>
-              <span className="hidden md:inline">Search projects&hellip;</span>
+              <Menu className="h-4 w-4 shrink-0" strokeWidth={1.75} aria-hidden />
+              Menu
             </button>
             <ThemeToggle />
           </div>
