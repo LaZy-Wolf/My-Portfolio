@@ -1,13 +1,13 @@
-# Never upload secrets or local working files.
+# Never upload secrets or local working files. Leading slash = project root only.
 .env
 .env.*
 !.env.example
-backups
-DataForPortfolio
-MeMee.png
-Akhil_Kumar_Resume.pdf
-PortfolioPlan.txt
-PORTFOLIO_MASTER_PLAN.md
-.impeccable
-.claude
-docs
+/backups
+/DataForPortfolio
+/MeMee.png
+/Akhil_Kumar_Resume.pdf
+/PortfolioPlan.txt
+/PORTFOLIO_MASTER_PLAN.md
+/.impeccable
+/.claude
+/docs
