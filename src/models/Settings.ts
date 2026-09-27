@@ -9,7 +9,7 @@ export interface ISectionConfig {
 
 export interface ISettings {
   _id?: string;
-  theme: 'dark' | 'light';
+  theme: 'system' | 'dark' | 'light';
   accentColor: string;
   hero: {
     headline: string;
@@ -17,7 +17,13 @@ export interface ISettings {
     primaryCtaLabel: string;
     secondaryCtaLabel: string;
     showAvailabilityBadge: boolean;
+    /** Handwritten line beside the numbers under the hero. */
+    quote?: string;
   };
+  /** The numbers strip under the hero. */
+  stats?: { value: string; label: string }[];
+  /** "How I build": a heading, its grey second half, and the steps. */
+  approach?: { title: string; subtitle: string; steps: { title: string; text: string }[] };
   sections: ISectionConfig[];
   footer: {
     text: string;
@@ -51,7 +57,7 @@ const SectionConfigSchema = new Schema<ISectionConfig>(
 const SettingsSchema = new Schema<ISettings>(
   {
     _id: { type: String, default: 'main' },
-    theme: { type: String, enum: ['dark', 'light'], default: 'dark' },
+    theme: { type: String, enum: ['system', 'dark', 'light'], default: 'system' },
     accentColor: { type: String, default: '#E61919' },
     hero: {
       headline: {
@@ -66,6 +72,13 @@ const SettingsSchema = new Schema<ISettings>(
       primaryCtaLabel: { type: String, default: 'View Work' },
       secondaryCtaLabel: { type: String, default: 'Contact' },
       showAvailabilityBadge: { type: Boolean, default: true },
+      quote: { type: String, default: '' },
+    },
+    stats: { type: [{ _id: false, value: String, label: String }], default: [] },
+    approach: {
+      title: { type: String, default: '' },
+      subtitle: { type: String, default: '' },
+      steps: { type: [{ _id: false, title: String, text: String }], default: [] },
     },
     sections: {
       type: [SectionConfigSchema],

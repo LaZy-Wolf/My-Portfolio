@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { Project } from '@/models/Project';
@@ -30,6 +31,7 @@ export async function POST(req: Request) {
     await Project.bulkWrite(bulkOps);
 
     const updatedProjects = await Project.find().sort({ order: 1 }).lean();
+    revalidatePath('/', 'layout');
     return NextResponse.json({
       message: 'Projects reordered successfully',
       projects: updatedProjects,

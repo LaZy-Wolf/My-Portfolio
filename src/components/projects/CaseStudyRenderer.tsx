@@ -1,29 +1,37 @@
 import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
 import type { ICaseStudyBlock } from '@/models/Project';
-import { ExternalLink, Quote, TrendingUp } from 'lucide-react';
+import { slugify } from '@/lib/utils';
 
-interface CaseStudyRendererProps {
-  blocks: ICaseStudyBlock[];
+export function headingsOf(blocks: ICaseStudyBlock[] = []) {
+  return blocks
+    .filter((b) => b.type === 'heading' && b.content)
+    .map((b) => ({ id: slugify(b.content!), text: b.content! }));
 }
 
-export function CaseStudyRenderer({ blocks }: CaseStudyRendererProps) {
-  if (!blocks || blocks.length === 0) {
+const figure = 'relative overflow-hidden rounded-[14px] bg-ink/[0.05] ring-1 ring-rule';
+const unoptimized = (src: string) => src.startsWith('data:');
+
+export function CaseStudyRenderer({ blocks }: { blocks: ICaseStudyBlock[] }) {
+  if (!blocks?.length) {
     return (
-      <div className="p-8 border border-dashed border-telemetry-border text-center font-mono text-xs text-telemetry-muted">
-        [ CASE STUDY DETAILS CURRENTLY BEING COMPILED FOR THIS DEPLOYMENT ]
-      </div>
+      <p className="text-[1.0625rem] leading-relaxed text-ink-2">
+        The write-up for this project is on its way. The code and the summary above are the best source for now.
+      </p>
     );
   }
 
   return (
-    <div className="space-y-10 max-w-4xl">
+    <div className="space-y-6">
       {blocks.map((block, idx) => {
+        const key = block.id || idx;
         switch (block.type) {
           case 'heading':
             return (
               <h2
-                key={block.id || idx}
-                className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white pt-6 border-t border-telemetry-border/40 first:border-t-0 first:pt-0"
+                key={key}
+                id={slugify(block.content || '')}
+                className="scroll-mt-24 pt-10 text-[1.75rem] font-bold leading-tight tracking-[-0.02em] first:pt-0 md:text-[2rem]"
               >
                 {block.content}
               </h2>
@@ -31,10 +39,7 @@ export function CaseStudyRenderer({ blocks }: CaseStudyRendererProps) {
 
           case 'paragraph':
             return (
-              <p
-                key={block.id || idx}
-                className="text-sm sm:text-base font-mono text-telemetry-muted leading-relaxed whitespace-pre-line"
-              >
+              <p key={key} className="whitespace-pre-line text-[1.0625rem] leading-[1.7] text-ink-2 md:text-[1.125rem]">
                 {block.content}
               </p>
             );
@@ -42,107 +47,144 @@ export function CaseStudyRenderer({ blocks }: CaseStudyRendererProps) {
           case 'image':
             if (!block.imageUrl) return null;
             return (
-              <figure key={block.id || idx} className="space-y-2">
-                <div className="relative aspect-video w-full border border-telemetry-border bg-substrate-surface overflow-hidden">
+              <figure key={key} className="!my-10 space-y-3">
+                <div className={`${figure} aspect-[16/10]`}>
                   <Image
                     src={block.imageUrl}
-                    alt={block.caption || 'Case study illustration'}
+                    alt={block.caption || ''}
                     fill
-                    className="object-cover"
-                    sizes="(max-width: 1200px) 100vw, 800px"
-                    unoptimized={block.imageUrl.startsWith('data:')}
+                    className="object-cover object-top"
+                    sizes="(max-width: 1024px) 100vw, 46rem"
+                    unoptimized={unoptimized(block.imageUrl)}
                   />
                 </div>
-                {block.caption && (
-                  <figcaption className="text-xs font-mono text-telemetry-muted">
-                    {block.caption}
-                  </figcaption>
-                )}
+                {block.caption && <figcaption className="text-[0.875rem] text-ink-2">{block.caption}</figcaption>}
               </figure>
             );
 
           case 'gallery':
-            if (!block.galleryUrls || block.galleryUrls.length === 0) return null;
+            if (!block.galleryUrls?.length) return null;
             return (
-              <div key={block.id || idx} className="space-y-3">
-                <div className={`grid grid-cols-1 ${block.galleryUrls.length > 1 ? 'sm:grid-cols-2' : ''} gap-4`}>
-                  {block.galleryUrls.map((gUrl, gIdx) => (
-                    <div key={gIdx} className="relative aspect-video w-full border border-telemetry-border bg-substrate-surface overflow-hidden">
+              <figure key={key} className="!my-10 space-y-3">
+                <div className={`grid gap-4 ${block.galleryUrls.length > 1 ? 'sm:grid-cols-2' : ''}`}>
+                  {block.galleryUrls.map((src, i) => (
+                    <div key={i} className={`${figure} aspect-[4/3]`}>
                       <Image
-                        src={gUrl}
-                        alt={`${block.caption || 'Gallery asset'} ${gIdx + 1}`}
+                        src={src}
+                        alt={block.caption ? `${block.caption}, ${i + 1}` : ''}
                         fill
                         className="object-cover"
-                        sizes="(max-width: 1200px) 100vw, 400px"
-                        unoptimized={gUrl.startsWith('data:')}
+                        sizes="(max-width: 640px) 100vw, 23rem"
+                        unoptimized={unoptimized(src)}
                       />
                     </div>
                   ))}
                 </div>
-                {block.caption && (
-                  <p className="text-xs font-mono text-telemetry-muted">
-                    {block.caption}
-                  </p>
-                )}
-              </div>
+                {block.caption && <figcaption className="text-[0.875rem] text-ink-2">{block.caption}</figcaption>}
+              </figure>
             );
 
+          case 'table':
+            return <DataTable key={key} content={block.content || ''} caption={block.caption} />;
+
           case 'quote':
+            // The one line that matters in this section.
             return (
-              <div
-                key={block.id || idx}
-                className="border-l-2 border-signal bg-substrate-surface p-6 space-y-2 relative"
-              >
-                <Quote className="w-5 h-5 text-signal opacity-60 mb-1" />
-                <p className="font-mono text-sm sm:text-base text-white italic leading-relaxed">
-                  &ldquo;{block.quote}&rdquo;
-                </p>
-                {block.author && (
-                  <div className="text-xs font-mono text-telemetry-muted pt-1">
-                    &mdash; {block.author}
-                  </div>
-                )}
-              </div>
+              <figure key={key} className="!my-10">
+                <span className="mb-4 flex h-[18px] w-10 items-center" aria-hidden>
+                  <span className="h-[5px] w-full rounded-full" style={{ background: 'rgb(var(--line))' }} />
+                </span>
+                <blockquote className="text-[1.5rem] font-semibold leading-snug tracking-[-0.015em] text-ink md:text-[1.75rem]">
+                  {block.quote}
+                </blockquote>
+                {block.author && <figcaption className="mt-3 text-[0.875rem] text-ink-2">{block.author}</figcaption>}
+              </figure>
             );
 
           case 'metric':
             return (
-              <div
-                key={block.id || idx}
-                className="border border-telemetry-border bg-substrate-surface p-6 flex items-center justify-between"
-              >
-                <div>
-                  <span className="telemetry-tag text-telemetry-muted block">
-                    {block.label || 'PERFORMANCE OBSERVATION'}
-                  </span>
-                  <div className="text-2xl sm:text-4xl font-mono font-black text-white mt-1">
-                    {block.value}
-                  </div>
-                </div>
-                <TrendingUp className="w-8 h-8 text-signal opacity-60" />
+              <div key={key} className="!my-8 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-y border-rule py-5">
+                <span className="num text-[2rem] font-bold tracking-[-0.02em]">{block.value}</span>
+                <span className="text-[0.9375rem] text-ink-2">{block.label}</span>
               </div>
             );
 
-          case 'link':
-            if (!block.url) return null;
+          case 'link': {
+            // Consecutive links share one row: the first is the main action, the rest are quieter.
+            if (blocks[idx - 1]?.type === 'link') return null;
+            const run: ICaseStudyBlock[] = [];
+            for (let i = idx; blocks[i]?.type === 'link'; i++) if (blocks[i].url) run.push(blocks[i]);
+            if (!run.length) return null;
             return (
-              <div key={block.id || idx} className="pt-2">
-                <a
-                  href={block.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="brutalist-btn brutalist-btn-accent text-xs py-3 px-6 inline-flex items-center gap-2"
-                >
-                  <span>{block.label || 'VISIT EXTERNAL RESOURCE'}</span>
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
+              <p key={key} className="flex flex-wrap gap-3 pt-6">
+                {run.map((b, i) => (
+                  <a key={b.url} href={b.url} target="_blank" rel="noopener noreferrer" className={i ? 'btn-quiet' : 'btn-ink'}>
+                    {b.label || 'Open link'}
+                    <ArrowUpRight className="h-4 w-4" strokeWidth={2} aria-hidden />
+                  </a>
+                ))}
+              </p>
             );
+          }
 
           default:
             return null;
         }
       })}
     </div>
+  );
+}
+
+function DataTable({ content, caption }: { content: string; caption?: string }) {
+  const rows = content
+    .split('\n')
+    .map((r) => r.split('|').map((c) => c.trim()))
+    .filter((r) => r.some(Boolean));
+  if (rows.length < 2) return null;
+  const [head, ...body] = rows;
+  const numeric = (c: string) => /^[<>~]?\s*[\d.,]+\s*(ms|s|%|x)?$/i.test(c);
+
+  return (
+    <figure className="!my-10">
+      <div className="-mx-5 overflow-x-auto px-5 sm:mx-0 sm:px-0" data-lenis-prevent>
+        <table className="w-full min-w-[34rem] border-collapse text-[0.9375rem]">
+          <thead>
+            <tr className="border-b-2 border-ink">
+              {head.map((h, i) => (
+                <th
+                  key={i}
+                  scope="col"
+                  className={`whitespace-nowrap py-2.5 pr-4 font-semibold last:pr-0 ${i === 0 ? 'text-left' : 'text-right'}`}
+                >
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {body.map((row, r) => (
+              <tr key={r} className="border-b border-rule">
+                {head.map((_, i) => {
+                  const cell = row[i] ?? '';
+                  const Cell = i === 0 ? 'th' : 'td';
+                  return (
+                    <Cell
+                      key={i}
+                      scope={i === 0 ? 'row' : undefined}
+                      className={`py-3 pr-4 last:pr-0 ${
+                        i === 0 ? 'text-left font-medium text-ink' : 'num text-right text-ink-2'
+                      } ${numeric(cell) ? 'num' : ''}`}
+                    >
+                      {cell}
+                    </Cell>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {caption && <figcaption className="mt-3 text-[0.875rem] leading-relaxed text-ink-2">{caption}</figcaption>}
+    </figure>
   );
 }

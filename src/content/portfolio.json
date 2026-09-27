@@ -1,0 +1,1059 @@
+{
+  "profile": {
+    "_id": "main",
+    "name": "Gugulothu Akhil Kumar",
+    "role": "AI & Full-Stack Engineer",
+    "tagline": "AI systems, measured stop by stop.",
+    "shortBio": "AI and full-stack engineer in Hyderabad. I build voice agents, RAG and agent workflows, and publish what they measure, including the targets they miss.",
+    "longBio": "I'm an AI and full-stack engineer in Hyderabad. Since November 2025 I've been a GenAI Full-Stack Engineer Intern at Allcognix AI, where I've built and shipped 4+ production AI products end to end: sales automation, automated software QA, financial operations and an AI-native CRM.\n\nOutside work I build the systems I want to understand properly: a phone agent timed stage by stage, a helpdesk copilot whose retrieval is scored on a golden set, a research assistant that checks its own citations. I write down what the numbers say, including when they miss.",
+    "designPhilosophy": "Measure it before you claim it. Every system I build reports its own numbers, and I publish the ones that miss as well as the ones that land.",
+    "avatarUrl": "/me.webp",
+    "resumeUrl": "/Akhil_Kumar_Resume.pdf",
+    "email": "enigmasrealm77@gmail.com",
+    "phone": "+91 70754 00204",
+    "location": "Hyderabad, India",
+    "availability": "Open to full-time GenAI roles",
+    "socials": {
+      "github": "https://github.com/LaZy-Wolf",
+      "linkedin": "https://www.linkedin.com/in/akhil-kumar9/",
+      "twitter": "",
+      "dribbble": "",
+      "behance": ""
+    },
+    "experience": [
+      {
+        "role": "GenAI Full-Stack Engineer Intern",
+        "company": "Allcognix AI",
+        "location": "Remote, India",
+        "period": "Nov 2025 - Present",
+        "points": [
+          "Built and shipped 4+ production AI products end to end across sales automation, automated software QA, financial operations and an AI-native CRM, replacing manual multi-tool workflows with single AI-driven platforms.",
+          "Deliver full-stack features that bring LLMs into FastAPI backends and React/Next.js frontends, with PostgreSQL for persistence and Redis for caching.",
+          "Design LangGraph and LangChain agent workflows that automate enterprise operations and cut manual effort.",
+          "Work in an agile team taking AI features from prototype to reliable production deployments."
+        ],
+        "products": [
+          {
+            "name": "Vaelora",
+            "kind": "AI sales engineer",
+            "url": "https://sales.allcognix.com",
+            "status": "live",
+            "image": "/work/allcognix/sales.webp",
+            "summary": "One assistant that takes a plain-English request and routes it to nine specialist agents: dialer, SDR, CRM, meetings, technical discovery, solution architecture, demo and POC prep, objection handling and proposals.",
+            "points": [
+              "60+ tools across six categories, multi-step workflows on demand or on a schedule, answers grounded in the team’s own knowledge base",
+              "Works inside HubSpot, Gmail, Google Calendar and Meet, Notion, GitHub, Slack, Salesforce, Zoom and Outlook"
+            ]
+          },
+          {
+            "name": "Meetng AI",
+            "kind": "Self-hosted meeting recorder",
+            "url": "",
+            "status": "offline",
+            "image": "/work/allcognix/meetings.webp",
+            "summary": "Records every word of a meeting and never its video. Each microphone streams on its own connection, so every transcript line knows who said it without guessing.",
+            "points": [
+              "Deepgram receives audio and nothing else; speaker names are attached on the team’s own server",
+              "Runs on one machine with Docker Compose: Next.js, LiveKit, Postgres and Caddy"
+            ],
+            "note": "Offline right now. Screenshot from a local build."
+          },
+          {
+            "name": "Anvaya CRM",
+            "kind": "AI-native CRM",
+            "url": "https://crm.allcognix.com",
+            "status": "live",
+            "image": "/work/allcognix/crm.webp",
+            "summary": "Deal pipelines, contact timelines, custom objects, and quotes, invoices and contracts in one workspace, with an AI morning digest and automatic email capture.",
+            "points": [
+              "Custom objects without database migrations, and row-level multi-tenant isolation",
+              "Workflow automations and webhooks that fire when a deal stage or custom field changes"
+            ]
+          },
+          {
+            "name": "Graylint AI",
+            "kind": "Automated software QA",
+            "url": "https://qa.allcognix.com",
+            "status": "live",
+            "image": "/work/allcognix/qa.webp",
+            "summary": "Turns plain-English requirements into Playwright tests, runs them against the app with self-healing, and reports exactly what it had to weaken to get a green.",
+            "points": [
+              "Six stages (supervisor, generator, executor, triage, regression, reporter), and a stage that never ran is shown grey, never green",
+              "Mutation-tested: the app was broken on purpose five times and each break failed on the exact assertion; the CI gate exits 0, 1 or 2"
+            ]
+          }
+        ]
+      }
+    ],
+    "education": [
+      {
+        "degree": "B.Tech, Computer Science and Engineering (AI & Machine Learning)",
+        "institution": "Malla Reddy University, Hyderabad",
+        "period": "2022 - 2026",
+        "cgpa": "8.6 / 10",
+        "coursework": "Artificial Intelligence, Machine Learning, Deep Learning, Cloud Computing"
+      }
+    ],
+    "achievements": [
+      "2nd prize, National Hackathon at Malla Reddy University, for a GenAI chatbot",
+      "Second-round qualifier, Google GRID Hackathon",
+      "Competed in the Bolt AI Hackathon"
+    ],
+    "certifications": [
+      "Google Cloud Computing (GDSC, 2024)",
+      "Programming in Java (NPTEL, 2024)"
+    ]
+  },
+  "projects": [
+    {
+      "title": "SONAR",
+      "slug": "sonar-realtime-voice-agent",
+      "summary": "A real-time, interruptible voice agent that answers the phone. It looks customers up, answers from a knowledge base and books site visits, and every turn is timed stage by stage.",
+      "role": "Personal project",
+      "year": "2026",
+      "timeline": "Sep 2026, ongoing",
+      "status": "published",
+      "featured": true,
+      "order": 1,
+      "thumbnailUrl": "/work/sonar-hero.webp",
+      "galleryUrls": [],
+      "techStack": [
+        "Python",
+        "LiveKit Agents",
+        "WebRTC",
+        "Deepgram",
+        "Groq",
+        "OpenRouter",
+        "NVIDIA NIM",
+        "Cartesia",
+        "Twilio SIP",
+        "MCP",
+        "SQLite",
+        "Next.js",
+        "Docker"
+      ],
+      "tags": [
+        "Voice agent",
+        "Voice & speech",
+        "Real-time",
+        "MCP"
+      ],
+      "links": {
+        "live": "https://sonar-voice-agent.vercel.app",
+        "repository": "https://github.com/LaZy-Wolf/Sonar-Voice-Agent"
+      },
+      "metrics": [
+        {
+          "label": "Time to first audio, p50",
+          "value": "1412 ms"
+        },
+        {
+          "label": "Target",
+          "value": "900 ms"
+        },
+        {
+          "label": "p95",
+          "value": "1487 ms"
+        },
+        {
+          "label": "Unit tests",
+          "value": "59"
+        }
+      ],
+      "processSteps": [
+        "Caller goes quiet",
+        "End of turn @ 772",
+        "Deepgram transcript @ 165",
+        "Groq first token @ 312",
+        "Cartesia first audio @ 163"
+      ],
+      "caseStudyBlocks": [
+        {
+          "type": "heading",
+          "content": "What it does"
+        },
+        {
+          "type": "paragraph",
+          "content": "SONAR is the front desk for Helios Solar, a fictional rooftop installer. It looks customers up, answers questions from a knowledge base, checks a calendar and books site visits. You can reach it from a web page or by dialling a phone number. It can also place outbound calls, which stay switched off on the public deployment."
+        },
+        {
+          "type": "image",
+          "imageUrl": "/work/sonar-hero.webp",
+          "caption": "The live demo. Press Start talking (it asks for the microphone) and every stage of your turn is timed while you speak."
+        },
+        {
+          "type": "heading",
+          "content": "How a turn travels"
+        },
+        {
+          "type": "paragraph",
+          "content": "Browser audio arrives over WebRTC and phone calls come in through a Twilio SIP trunk. LiveKit bridges both into the same room as an ordinary participant, so one agent worker serves the browser, inbound calls and outbound calls without knowing the difference. Deepgram nova-3 transcribes, Groq's gpt-oss-20b answers, Cartesia Sonic speaks, and six tools reach SQLite through my FastMCP server."
+        },
+        {
+          "type": "heading",
+          "content": "Measured latency"
+        },
+        {
+          "type": "paragraph",
+          "content": "Five turns against the deployed agent in us-east, three of them answered through a tool call. Time to first audio is LiveKit's own end-to-end figure: from the caller going quiet to the agent's first audio frame, tool round included."
+        },
+        {
+          "type": "table",
+          "content": "Stage | p50 | p95 | Target | Met\nEnd-of-utterance detection | 772 ms | 800 ms | 350 ms | No\nTranscription | 165 ms | 204 ms | 150 ms | No\nLLM first token | 312 ms | 366 ms | 500 ms | Yes\nTTS first byte | 163 ms | 194 ms | 150 ms | No\nTime to first audio | 1412 ms | 1487 ms | 900 ms | No",
+          "caption": "Agent-side numbers, measured 11 Sep 2026. They stop at the agent's first audio frame and do not count the trip out to the caller."
+        },
+        {
+          "type": "quote",
+          "quote": "Hearing the caller is the stage that misses, by a distance."
+        },
+        {
+          "type": "paragraph",
+          "content": "The stages do not add up to the total, in either direction. livekit-agents starts the model on the transcript while the turn detector is still deciding, so thinking overlaps hearing. Adding the stages up overstated a direct turn by 220 to 360 ms and understated a tool turn by 170 to 210 ms. Earlier versions of my table made exactly that mistake."
+        },
+        {
+          "type": "paragraph",
+          "content": "A turn answered directly takes 920 ms; one that needs a tool takes 1475 ms. Latency first looked like distance, with the agent in India and the providers in the US, so I moved the agent to us-east. Transcription got about three times faster and the model got faster, but end-of-utterance got worse, from 634 ms to 772 ms. The README says so. Five turns is a small sample, and it is described as one."
+        },
+        {
+          "type": "heading",
+          "content": "Decisions, on evidence"
+        },
+        {
+          "type": "paragraph",
+          "content": "Nemotron was meant to be the model, and its tool calling was faultless. But NVIDIA's free tier measured a median time to first token of 597 ms with a worst case of 5203 ms, and one live call lost 5.6 seconds to silence. Groq measured 355 ms median and 456 ms worst with no failures. On a phone call the p95 is what people hang up on, so Groq leads and Nemotron covers Groq's rate limits."
+        },
+        {
+          "type": "paragraph",
+          "content": "Inside Groq I chose gpt-oss-20b for tool use, not speed. At low temperature qwen3.8-27b promised to look something up and never called the tool, so the caller heard a promise and then silence. gpt-oss-20b searched the knowledge base silently and answered from it in six of six full turns."
+        },
+        {
+          "type": "paragraph",
+          "content": "The fallback chain is load-bearing. With the Groq budget held at zero, the deployed agent was refused with a 429, switched to the same model on OpenRouter and still answered from the knowledge base, 200 ms later than usual. Attempts time out at 2.5 s instead of the default 5, because five seconds of dead air is not a fallback."
+        },
+        {
+          "type": "heading",
+          "content": "Fixes on the phone line"
+        },
+        {
+          "type": "paragraph",
+          "content": "Outbound calls greeted a ringing line, so whoever picked up heard nothing. The agent now waits for the SIP call status to turn active before it speaks, and because starting the voice session during the ring crashed the worker natively, it starts after the answer. Speaking a fixed greeting straight to text-to-speech, instead of generating it with the model, cut the silence after pickup from 5.2 s to 1.64 s."
+        },
+        {
+          "type": "heading",
+          "content": "How it is verified"
+        },
+        {
+          "type": "paragraph",
+          "content": "A credential check hits all six providers live and does a real voice round trip: Cartesia speaks a phrase and Deepgram transcribes it back. A smoke test joins a room, speaks a synthesised question and fails on a wrong answer, not merely on a dead process. 59 unit tests cover the tools, the settings, the metrics aggregation and the outbound answer gate."
+        },
+        {
+          "type": "heading",
+          "content": "Limits"
+        },
+        {
+          "type": "paragraph",
+          "content": "Time to first audio misses its 900 ms target, and hearing is the slowest stage; its cause is still being investigated. The agent runs on LiveKit Cloud’s free plan, so after a quiet spell the first visitor waits 10 to 20 seconds for it to wake. Groq’s free tier allows roughly three tool-calling turns a minute before the paid fallback takes over. Phone calling works but is not public, because the Twilio account is a trial."
+        },
+        {
+          "type": "link",
+          "label": "Talk to SONAR",
+          "url": "https://sonar-voice-agent.vercel.app"
+        },
+        {
+          "type": "link",
+          "label": "Read the decisions log",
+          "url": "https://github.com/LaZy-Wolf/Sonar-Voice-Agent/blob/main/docs/decisions-log.md"
+        },
+        {
+          "type": "link",
+          "label": "Measured latency in the README",
+          "url": "https://github.com/LaZy-Wolf/Sonar-Voice-Agent#measured-latency"
+        },
+        {
+          "type": "link",
+          "label": "CI on GitHub Actions",
+          "url": "https://github.com/LaZy-Wolf/Sonar-Voice-Agent/actions/workflows/ci.yml"
+        }
+      ],
+      "note": "still chasing that 512 ms"
+    },
+    {
+      "title": "SONAR-TUNE",
+      "slug": "sonar-tune-fine-tuned-2b",
+      "summary": "A 2-billion-parameter open model fine-tuned to do SONAR’s job: 91.8% task success on a multi-turn benchmark, against 67.2% for the 20B hosted model it is benchmarked to replace, served on a laptop CPU at $0 per call.",
+      "role": "Personal project",
+      "year": "2026",
+      "timeline": "2026, ongoing",
+      "status": "published",
+      "featured": true,
+      "order": 2,
+      "thumbnailUrl": "",
+      "galleryUrls": [],
+      "techStack": [
+        "Python",
+        "Unsloth",
+        "LoRA / PEFT",
+        "llama.cpp",
+        "PyTorch",
+        "Hugging Face Transformers",
+        "TRL",
+        "Kaggle T4",
+        "GGUF",
+        "MCP",
+        "SQLite"
+      ],
+      "tags": [
+        "Fine-tuned model",
+        "Fine-tuning & evals",
+        "LoRA",
+        "Synthetic data"
+      ],
+      "links": {
+        "live": "",
+        "repository": ""
+      },
+      "metrics": [
+        {
+          "label": "Task success, 61-case benchmark",
+          "value": "91.8%"
+        },
+        {
+          "label": "Same benchmark, production 20B model",
+          "value": "67.2%"
+        },
+        {
+          "label": "Held-out, 150 GPT-written cases",
+          "value": "75.3%"
+        },
+        {
+          "label": "Tool arguments exactly right",
+          "value": "91.9%"
+        }
+      ],
+      "processSteps": [
+        "Scenario engine",
+        "Teacher writes dialogue",
+        "Run real tools",
+        "Validator | Cross-family judge",
+        "Training set",
+        "loop 3: LoRA fine-tune, Multi-turn eval, Rejection sampling",
+        "GGUF on llama.cpp"
+      ],
+      "note": "the 20B model lost 17 of the 19 disagreements",
+      "caseStudyBlocks": [
+        {
+          "type": "heading",
+          "content": "What it is"
+        },
+        {
+          "type": "paragraph",
+          "content": "SONAR runs on a hosted 20B model. SONAR-TUNE asks whether a 2-billion-parameter open model, fine-tuned for SONAR’s calls, can do the same job better, on a laptop CPU, for nothing per call. On the benchmarks below it can. The live SONAR demo still runs the hosted Groq model: the fine-tuned model is wired in on a branch and benchmarked to replace it, not live."
+        },
+        {
+          "type": "heading",
+          "content": "Results"
+        },
+        {
+          "type": "table",
+          "content": "Measure | Untuned Qwen3.5-2B | Production gpt-oss-20b | My fine-tuned 2B\nTask success, 61-case benchmark | 45.9% | 67.2% | 91.8%\nTool arguments exactly right | 10.8% | 45.9% | 91.9%\nTask success, 150-case held-out | 45.3% | being measured | 75.3%",
+          "caption": "The 150-case held-out benchmark was generated with GPT, a model family used nowhere in training, and never looked at during development."
+        },
+        {
+          "type": "quote",
+          "quote": "Better than the production model on 17 of the 19 cases where they disagree. Exact sign test, p = 0.001."
+        },
+        {
+          "type": "paragraph",
+          "content": "The drop from 92% to 75% on the held-out set is the honest cost of leaving the training distribution. On a laptop CPU the first token arrives in about 760 ms with a warm cache, at 16 tokens a second. The hosted model is faster, about 312 ms to first token; a GPU would close that gap."
+        },
+        {
+          "type": "heading",
+          "content": "How the data is made"
+        },
+        {
+          "type": "paragraph",
+          "content": "The training data is synthetic, and every conversation is checked by running it. A scenario engine defines each call and its exact correct tool call. A teacher model only writes the dialogue; every tool call is executed against SONAR’s real tools on a fresh database. A validator throws out anything wrong, about half of roughly 1,240 generated conversations: it checks arguments, forbidden actions, stray bookings, reading details back before a write, and the voice rules, with a judge from a different model family for what rules cannot decide."
+        },
+        {
+          "type": "paragraph",
+          "content": "Data quality over data volume. A quarter of the teacher model’s bookings skipped the email read-back its own instructions require, so the validator now rejects them. The model’s own validated attempts were fed back as training data (rejection sampling)."
+        },
+        {
+          "type": "heading",
+          "content": "Training and evaluation"
+        },
+        {
+          "type": "paragraph",
+          "content": "LoRA at rank 32 on Qwen3.5-2B across all 24 layers, with Unsloth on a free Kaggle T4, about 80 minutes a run. Six controlled runs: three configurations, then three iteration rounds. The evaluation harness plays each benchmark case as a real call against real tools and scores task success by category, with bootstrap confidence intervals and paired significance tests. Serving uses llama.cpp with a 1.3 GB GGUF quantised to Q4_K_M. Total spend: $0, on free tiers and a free GPU."
+        },
+        {
+          "type": "heading",
+          "content": "Bugs worth finding"
+        },
+        {
+          "type": "paragraph",
+          "content": "A train/serve mismatch in the chat template. Qwen3.5 opens every generated reply with an empty think block, but its template only adds that block to replies after the caller’s last message. So “ask before booking” was learned only in a format the model never generates in, and every run booked on the first turn whatever the data said. The fix: one training example per caller turn, with loss only on replies in the form they are served."
+        },
+        {
+          "type": "paragraph",
+          "content": "The benchmark was debugged before it was trusted. Later caller turns were never played, “don’t book” was never checked, double bookings passed, and my own API rate limits were being timed as the production model’s latency. Each of these silently distorted scores until it was fixed. The free-tier pipeline itself got quota-aware endpoint pools, rotating away from a rate-limited endpoint instead of retrying it."
+        },
+        {
+          "type": "paragraph",
+          "content": "The code, the model and the dataset are not public yet. They will be linked here when they are."
+        }
+      ]
+    },
+    {
+      "title": "ASOC",
+      "slug": "asoc-agentic-rag-platform",
+      "summary": "An IT helpdesk copilot that answers from runbooks with citations and acts through tools. Every write waits for a human, and that pause survives a restart.",
+      "role": "Personal project",
+      "year": "2026",
+      "timeline": "Jul 2026",
+      "status": "published",
+      "featured": true,
+      "order": 3,
+      "thumbnailUrl": "",
+      "galleryUrls": [],
+      "techStack": [
+        "Python",
+        "LangGraph",
+        "FastAPI",
+        "Qdrant",
+        "BM25",
+        "bge reranker",
+        "MCP",
+        "SQLite",
+        "Groq",
+        "Gemini",
+        "Next.js",
+        "Langfuse",
+        "Docker"
+      ],
+      "tags": [
+        "Helpdesk copilot",
+        "Agents & RAG",
+        "MCP"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/LaZy-Wolf/ASOC"
+      },
+      "metrics": [
+        {
+          "label": "Recall@5, hybrid + rerank",
+          "value": "0.932"
+        },
+        {
+          "label": "Dense-only baseline",
+          "value": "0.864"
+        },
+        {
+          "label": "Refusal recall",
+          "value": "0.900"
+        },
+        {
+          "label": "Golden set",
+          "value": "91 questions"
+        }
+      ],
+      "processSteps": [
+        "Router",
+        "Dense vectors | BM25 keywords",
+        "RRF fusion",
+        "Cross-encoder rerank",
+        "Confidence gate",
+        "hold: Human approval",
+        "Execute via MCP",
+        "Respond"
+      ],
+      "caseStudyBlocks": [
+        {
+          "type": "heading",
+          "content": "What it does"
+        },
+        {
+          "type": "paragraph",
+          "content": "ASOC, the Agentic Support & Operations Copilot, is an internal IT helpdesk copilot that both knows things and does things. It answers from a corpus of 20 runbooks and policies with citations, and it acts through eight tools on a real store. Every write stops and waits for a human."
+        },
+        {
+          "type": "heading",
+          "content": "Retrieval is measured, not asserted"
+        },
+        {
+          "type": "paragraph",
+          "content": "The eval set has 91 questions: 81 answerable and 10 deliberately unanswerable. The metrics are deterministic (recall, MRR, nDCG) with no LLM judge in the loop, and the results table is regenerated from the code."
+        },
+        {
+          "type": "table",
+          "content": "Config | Recall@5 | MRR | nDCG@5 | p50\nDense top-k (baseline) | 0.864 | 0.735 | 0.761 | 15 ms\nHybrid RRF | 0.907 | 0.771 | 0.798 | 17 ms\nHybrid + rerank | 0.932 | 0.796 | 0.826 | 1143 ms",
+          "caption": "From backend/eval/RESULTS.md, generated by eval.retrieval_eval."
+        },
+        {
+          "type": "quote",
+          "quote": "Reranking is not there for the ranking."
+        },
+        {
+          "type": "paragraph",
+          "content": "Reranking buys 36% of the recall gain for 77 times the baseline latency, which alone would be a poor trade. Its real job is producing an absolute relevance score. RRF is rank-derived, so an unanswerable question can score the maximum; measured, the answerable and unanswerable ranges overlap completely. Without a cross-encoder there is nothing to threshold, and the refusal gate could not exist."
+        },
+        {
+          "type": "paragraph",
+          "content": "The refusal threshold is an operating point, not a clean separation. I publish the whole curve and lean toward refusing, because inventing an access policy is worse than an unnecessary \"I don't know\". At the chosen point, refusal recall is 0.900 with a false refusal rate of 0.062."
+        },
+        {
+          "type": "heading",
+          "content": "An approval gate that survives a restart"
+        },
+        {
+          "type": "paragraph",
+          "content": "A write pauses the LangGraph state machine, and the pause is persisted state rather than a blocked thread, so a different process can approve it. Ask for a ticket, kill the backend, restart it, then approve: the write goes through. I rebuilt the plan-execute slice in CrewAI to compare, and this is the property it could not match."
+        },
+        {
+          "type": "heading",
+          "content": "Stack"
+        },
+        {
+          "type": "paragraph",
+          "content": "Qdrant with dense bge-small-en-v1.5 and BM25 sparse vectors fused server-side with RRF. A bge-reranker-base cross-encoder on CPU. My own FastMCP server with eight tools over SQLite, four read and four write, spoken over stdio. Groq llama-3.3-70b with two rotated keys and a Gemini fallback. FastAPI with SSE, a Next.js console with an evidence rail and approval card, and optional self-hosted Langfuse tracing."
+        },
+        {
+          "type": "link",
+          "label": "Read the code",
+          "url": "https://github.com/LaZy-Wolf/ASOC"
+        }
+      ],
+      "note": "nothing is written until a human says yes"
+    },
+    {
+      "title": "LUMINA",
+      "slug": "lumina-misinformation-detection",
+      "summary": "A misinformation toolkit. It fact-checks claims and images, flags manipulated media, rates URLs and source bias, and summarises news neutrally.",
+      "role": "Personal project",
+      "year": "2025",
+      "timeline": "Sep - Nov 2025",
+      "status": "published",
+      "featured": true,
+      "order": 4,
+      "thumbnailUrl": "",
+      "galleryUrls": [],
+      "techStack": [
+        "Python",
+        "FastAPI",
+        "LangChain",
+        "Groq",
+        "Gemini",
+        "Mistral OCR",
+        "Tavily",
+        "BeautifulSoup",
+        "TypeScript"
+      ],
+      "tags": [
+        "Fact-checker",
+        "Fact-checking",
+        "Multimodal"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/LaZy-Wolf/LUMINA--Tool-for-Combating-Misinformation"
+      },
+      "metrics": [
+        {
+          "label": "Analysis modes",
+          "value": "9"
+        },
+        {
+          "label": "Inputs",
+          "value": "Text, images, video, URLs"
+        }
+      ],
+      "processSteps": [
+        "Text | Image | Video | URL",
+        "OCR and extraction",
+        "Evidence search",
+        "Groq reasoning",
+        "Gemini media check",
+        "Verdict"
+      ],
+      "caseStudyBlocks": [
+        {
+          "type": "heading",
+          "content": "What it does"
+        },
+        {
+          "type": "paragraph",
+          "content": "LUMINA (Light of Unbiased Media & Information Neutrality AI) helps people check what they read. It fact-checks claims in text or images with confidence scores, looks for manipulation or AI generation in images, checks short videos for deepfakes, rates URLs for phishing and scam risk, places sources on a left-right bias radar, and summarises articles neutrally with alternative views."
+        },
+        {
+          "type": "heading",
+          "content": "How it works"
+        },
+        {
+          "type": "paragraph",
+          "content": "A FastAPI backend orchestrated with LangChain. Mistral OCR pulls text out of images, Tavily retrieves evidence from trusted sources, Groq handles the language reasoning and Google Gemini does the image, video and multimodal analysis. BeautifulSoup scrapes the pages under review. Batch mode checks many claims at once, and a social mode weighs a post's credibility and engagement."
+        },
+        {
+          "type": "link",
+          "label": "Read the code",
+          "url": "https://github.com/LaZy-Wolf/LUMINA--Tool-for-Combating-Misinformation"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "title": "MAIRA",
+      "slug": "maira-research-assistant",
+      "summary": "A multi-agent research assistant. It searches the web and arXiv, drafts, checks its own citations and facts in a capped verification loop, and exports reports as PDF or DOCX.",
+      "role": "Personal project",
+      "year": "2026",
+      "timeline": "Feb 2026",
+      "status": "published",
+      "featured": true,
+      "order": 5,
+      "thumbnailUrl": "",
+      "galleryUrls": [],
+      "techStack": [
+        "Python",
+        "FastAPI",
+        "LangGraph",
+        "React",
+        "TypeScript",
+        "Supabase",
+        "PostgreSQL",
+        "pgvector",
+        "Redis",
+        "Tavily",
+        "Groq",
+        "Gemini",
+        "Claude",
+        "LaTeX"
+      ],
+      "tags": [
+        "Research agents",
+        "Research & automation",
+        "Multi-agent"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/LaZy-Wolf/MAIRA"
+      },
+      "metrics": [
+        {
+          "label": "Specialised agents",
+          "value": "11"
+        },
+        {
+          "label": "Research tiers",
+          "value": "4"
+        },
+        {
+          "label": "Revision attempts, max",
+          "value": "3"
+        }
+      ],
+      "processSteps": [
+        "Question",
+        "Tier routing",
+        "Web and arXiv search",
+        "Draft",
+        "loop 3: Validate citations, Fact-check, Quality check",
+        "Report"
+      ],
+      "caseStudyBlocks": [
+        {
+          "type": "heading",
+          "content": "What it does"
+        },
+        {
+          "type": "paragraph",
+          "content": "MAIRA, the Multi-Agent Intelligent Research Assistant, turns a question into a researched, cited report. A lead strategist agent routes each request to one of four tiers: a conversational reply, a quick informational lookup, full deep research, or a structured academic literature survey written in LaTeX and exported to PDF or DOCX."
+        },
+        {
+          "type": "heading",
+          "content": "A verification loop with a hard cap"
+        },
+        {
+          "type": "paragraph",
+          "content": "Deep research runs eleven specialised agents. After drafting, a validation agent checks citation format, URL accessibility and completeness, a fact-checking agent verifies claims against the gathered sources, and a quality agent scores how well the sources were used. A failed check triggers a revision, at most three times."
+        },
+        {
+          "type": "quote",
+          "quote": "After three failed checks the report ships with a low-confidence warning instead of looping forever."
+        },
+        {
+          "type": "heading",
+          "content": "Built for real use"
+        },
+        {
+          "type": "paragraph",
+          "content": "Supabase auth with per-user threads, chat history in PostgreSQL through LangGraph checkpoints, and user-scoped RAG over uploaded documents with pgvector and Gemini embeddings. Upstash Redis handles caching and rate limits. The React interface streams over SSE with reconnection, can branch a thread from any checkpoint, and switches between Gemini, Claude, Llama, Kimi and GPT-OSS models."
+        },
+        {
+          "type": "link",
+          "label": "Read the code",
+          "url": "https://github.com/LaZy-Wolf/MAIRA"
+        }
+      ],
+      "note": "gives up after three tries, on purpose"
+    },
+    {
+      "title": "ClearCue",
+      "slug": "clearcue-ai-skincare",
+      "summary": "AI skincare consultation. Up to four photos and a short questionnaire become a skin analysis, a treatment plan, natural remedies and a PDF report.",
+      "role": "Personal project",
+      "year": "2025",
+      "timeline": "Jul 2025",
+      "status": "published",
+      "featured": false,
+      "order": 6,
+      "thumbnailUrl": "",
+      "galleryUrls": [],
+      "techStack": [
+        "Next.js 14",
+        "TypeScript",
+        "Gemini",
+        "Tailwind CSS"
+      ],
+      "tags": [
+        "Skincare consult",
+        "Web app"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/LaZy-Wolf/ClearCue-SkinCare"
+      },
+      "metrics": [],
+      "processSteps": [
+        "Photos and questionnaire",
+        "Gemini analysis",
+        "Treatment plan",
+        "PDF report",
+        "Follow-up chat"
+      ],
+      "caseStudyBlocks": [
+        {
+          "type": "heading",
+          "content": "What it does"
+        },
+        {
+          "type": "paragraph",
+          "content": "ClearCue takes up to four skin photos and a consultation questionnaire, and uses Google Gemini to produce a skin analysis, a personalised treatment plan, natural remedies and specific product suggestions. The analysis downloads as a PDF report, and a follow-up chat answers questions about it."
+        },
+        {
+          "type": "link",
+          "label": "Read the code",
+          "url": "https://github.com/LaZy-Wolf/ClearCue-SkinCare"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "title": "AK NINE",
+      "slug": "ak-9-voice-assistant",
+      "summary": "A desktop voice assistant. Wake word, Whisper speech-to-text and Gemini answers, plus reminders, music and app control and webcam object detection, in a PyQt5 interface.",
+      "role": "Personal project",
+      "year": "2025",
+      "timeline": "Aug 2025",
+      "status": "published",
+      "featured": false,
+      "order": 7,
+      "thumbnailUrl": "",
+      "galleryUrls": [],
+      "techStack": [
+        "Python",
+        "Porcupine",
+        "Whisper",
+        "Gemini",
+        "gTTS",
+        "MediaPipe",
+        "PyQt5"
+      ],
+      "tags": [
+        "Desktop voice assistant",
+        "Desktop"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/LaZy-Wolf/AK-NINE-An-AI-powered-Desktop-Voice-Assistant-"
+      },
+      "metrics": [],
+      "processSteps": [
+        "Wake word",
+        "Whisper transcript",
+        "Intent",
+        "Gemini or local tool",
+        "Spoken reply"
+      ],
+      "caseStudyBlocks": [
+        {
+          "type": "heading",
+          "content": "What it does"
+        },
+        {
+          "type": "paragraph",
+          "content": "Say \"AK NINE\" and Porcupine wakes the assistant. Whisper transcribes the command, tuned for Indian accents, and gTTS speaks the reply. It searches the web and Wikipedia with Gemini summaries, does voice maths, sets reminders, plays local music or Spotify, opens and closes apps, reports system stats, and uses the webcam to count fingers with MediaPipe or identify objects with Gemini Vision."
+        },
+        {
+          "type": "link",
+          "label": "Read the code",
+          "url": "https://github.com/LaZy-Wolf/AK-NINE-An-AI-powered-Desktop-Voice-Assistant-"
+        }
+      ],
+      "note": ""
+    },
+    {
+      "title": "Serverless Email API",
+      "slug": "serverless-email-api",
+      "summary": "A REST endpoint on Google Cloud Functions that sends mail through SendGrid, deployed with the Serverless Framework, with a Flask server for offline testing and a Next.js UI.",
+      "role": "Take-home task",
+      "year": "2025",
+      "timeline": "May 2025",
+      "status": "published",
+      "featured": false,
+      "order": 8,
+      "thumbnailUrl": "",
+      "galleryUrls": [],
+      "techStack": [
+        "Serverless Framework",
+        "Google Cloud Functions",
+        "SendGrid",
+        "Flask",
+        "Next.js"
+      ],
+      "tags": [
+        "Email API",
+        "API"
+      ],
+      "links": {
+        "live": "",
+        "repository": "https://github.com/LaZy-Wolf/serverless-email-api"
+      },
+      "metrics": [],
+      "processSteps": [
+        "POST request",
+        "Cloud Function",
+        "SendGrid",
+        "Inbox"
+      ],
+      "caseStudyBlocks": [
+        {
+          "type": "heading",
+          "content": "What it does"
+        },
+        {
+          "type": "paragraph",
+          "content": "A serverless REST API on Google Cloud Functions that sends email through SendGrid, deployed with the Serverless Framework. A Flask test server runs it offline, and an optional Next.js interface built with shadcn components sends test mail. I used GCP because of AWS payment constraints at the time."
+        },
+        {
+          "type": "link",
+          "label": "Read the code",
+          "url": "https://github.com/LaZy-Wolf/serverless-email-api"
+        }
+      ],
+      "note": ""
+    }
+  ],
+  "skills": [
+    {
+      "category": "AI and LLMs",
+      "order": 1,
+      "items": [
+        "LLM application development",
+        "Agentic AI",
+        "RAG",
+        "LangGraph",
+        "LangChain",
+        "Model Context Protocol",
+        "Tool calling",
+        "Prompt engineering",
+        "Multimodal AI",
+        "NLP"
+      ]
+    },
+    {
+      "category": "Voice and real-time",
+      "order": 2,
+      "items": [
+        "LiveKit Agents",
+        "WebRTC",
+        "Speech-to-text (Whisper, Deepgram)",
+        "Text-to-speech (Cartesia)",
+        "Voice activity detection",
+        "Twilio SIP"
+      ]
+    },
+    {
+      "category": "Backend",
+      "order": 3,
+      "items": [
+        "Python",
+        "FastAPI",
+        "Flask",
+        "Django",
+        "Node.js",
+        "REST APIs"
+      ]
+    },
+    {
+      "category": "Frontend",
+      "order": 4,
+      "items": [
+        "TypeScript",
+        "JavaScript",
+        "Next.js",
+        "React",
+        "Tailwind CSS"
+      ]
+    },
+    {
+      "category": "Data",
+      "order": 5,
+      "items": [
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "Redis",
+        "SQLite",
+        "Vector databases (Qdrant, pgvector)",
+        "Pandas",
+        "NumPy",
+        "scikit-learn",
+        "OpenCV"
+      ]
+    },
+    {
+      "category": "Cloud and tooling",
+      "order": 6,
+      "items": [
+        "AWS (Lambda, S3)",
+        "Docker",
+        "Serverless Framework",
+        "Git",
+        "Vercel"
+      ]
+    }
+  ],
+  "settings": {
+    "_id": "main",
+    "theme": "system",
+    "accentColor": "#D8343A",
+    "hero": {
+      "headline": "AI systems, built to be *understood.*",
+      "subtext": "I build voice agents, retrieval systems and agent workflows, then instrument them to see what works, what breaks, and why.",
+      "primaryCtaLabel": "Explore the systems",
+      "secondaryCtaLabel": "Email me",
+      "showAvailabilityBadge": true,
+      "quote": "I like turning complex problems into working systems."
+    },
+    "sections": [
+      {
+        "id": "hero",
+        "label": "Hero",
+        "visible": true,
+        "order": 1
+      },
+      {
+        "id": "industry",
+        "label": "Allcognix products",
+        "visible": true,
+        "order": 2
+      },
+      {
+        "id": "approach",
+        "label": "How I build",
+        "visible": true,
+        "order": 3
+      },
+      {
+        "id": "featured-projects",
+        "label": "Work",
+        "visible": true,
+        "order": 4
+      },
+      {
+        "id": "projects",
+        "label": "Smaller builds",
+        "visible": true,
+        "order": 5
+      },
+      {
+        "id": "skills",
+        "label": "Stack",
+        "visible": true,
+        "order": 6
+      },
+      {
+        "id": "about",
+        "label": "About",
+        "visible": true,
+        "order": 7
+      },
+      {
+        "id": "contact",
+        "label": "Contact",
+        "visible": true,
+        "order": 8
+      }
+    ],
+    "footer": {
+      "text": "Line colours borrowed from the Hyderabad Metro.",
+      "showAdminLink": false
+    },
+    "ai": {
+      "enabled": true,
+      "greeting": "Hi, I'm Akhil's AI twin. I answer only from this site's content, in his voice. Ask about a project, the stack, or how to reach him.",
+      "fallbackMessage": "The assistant is offline right now. The case studies have the details, or email enigmasrealm77@gmail.com.",
+      "provider": "groq"
+    },
+    "seo": {
+      "title": "Gugulothu Akhil Kumar, AI & Full-Stack Engineer",
+      "description": "AI and full-stack engineer in Hyderabad. Voice agents, RAG and agent workflows, published with their measured results.",
+      "ogImageUrl": ""
+    },
+    "stats": [
+      {
+        "value": "04",
+        "label": "Products I worked on at Allcognix AI"
+      },
+      {
+        "value": "91.8%",
+        "label": "Task success, my fine-tuned 2B model"
+      },
+      {
+        "value": "03",
+        "label": "Hackathons, one 2nd prize"
+      },
+      {
+        "value": "∞",
+        "label": "Things still breaking"
+      }
+    ],
+    "approach": {
+      "title": "Not just demos.",
+      "subtitle": "I care about what happens after the model answers.",
+      "steps": [
+        {
+          "title": "Retrieve",
+          "text": "Get the right context"
+        },
+        {
+          "title": "Reason",
+          "text": "Plan and decide with LLMs"
+        },
+        {
+          "title": "Use tools",
+          "text": "Take actions in real systems"
+        },
+        {
+          "title": "Measure",
+          "text": "Evaluate and observe"
+        },
+        {
+          "title": "Improve",
+          "text": "Iterate and make it better"
+        }
+      ]
+    }
+  }
+}

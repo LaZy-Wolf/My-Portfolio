@@ -4,8 +4,20 @@ import { useState } from 'react';
 import type { ISettings } from '@/models/Settings';
 import { Save, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 
+/** "a | b" lines to [a, b] pairs; blank lines are skipped. */
+function pairs(text: string) {
+  return text
+    .split('\n')
+    .filter((l) => l.trim())
+    .map((l) => {
+      const [a, ...b] = l.split('|');
+      return [a.trim(), b.join('|').trim()] as const;
+    });
+}
+
 export function SettingsForm({ initialSettings }: { initialSettings: ISettings }) {
   const [formData, setFormData] = useState<ISettings>(initialSettings);
+  const approach = formData.approach || { title: '', subtitle: '', steps: [] };
   const [isSaving, setIsSaving] = useState(false);
   const [toast, setToast] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
@@ -71,47 +83,29 @@ export function SettingsForm({ initialSettings }: { initialSettings: ISettings }
         <div className="border-b border-telemetry-border/60 pb-3">
           <span className="telemetry-tag text-signal">[ PARAM 01 // SUBSTRATE ]</span>
           <h2 className="text-base font-black uppercase text-white tracking-tight mt-1">
-            Visual Substrate & Telemetry Accent
+            Theme
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div>
-            <label className="telemetry-tag text-telemetry-muted">
-              Primary Signal Accent Color
-            </label>
-            <div className="flex items-center gap-3 mt-1">
-              <input
-                type="color"
-                value={formData.accentColor}
-                onChange={(e) => setFormData({ ...formData, accentColor: e.target.value })}
-                className="w-10 h-10 border border-telemetry-border bg-substrate cursor-pointer p-0"
-              />
-              <input
-                type="text"
-                value={formData.accentColor}
-                onChange={(e) => setFormData({ ...formData, accentColor: e.target.value })}
-                className="w-32 bg-substrate border border-telemetry-border px-3 py-2 text-xs font-mono text-white focus:border-signal outline-none uppercase"
-              />
-              <span className="text-[11px] font-mono text-telemetry-muted">
-                (Default: #E61919 Aviation Red)
-              </span>
-            </div>
-          </div>
-
-          <div>
-            <label className="telemetry-tag text-telemetry-muted">Theme Substrate</label>
-            <select
-              value={formData.theme}
-              onChange={(e) =>
-                setFormData({ ...formData, theme: e.target.value as 'dark' | 'light' })
-              }
-              className="w-full bg-substrate border border-telemetry-border px-3 py-2 text-xs font-mono text-white focus:border-signal outline-none mt-1"
-            >
-              <option value="dark">Dark Substrate (#0A0A0A // Tactical HUD)</option>
-              <option value="light">Light Substrate (#F4F4F0 // Swiss Print)</option>
-            </select>
-          </div>
+        <div className="max-w-md">
+          <label htmlFor="default-theme" className="telemetry-tag text-telemetry-muted">
+            Default theme for new visitors
+          </label>
+          <select
+            id="default-theme"
+            value={formData.theme}
+            onChange={(e) =>
+              setFormData({ ...formData, theme: e.target.value as ISettings['theme'] })
+            }
+            className="w-full bg-substrate border border-telemetry-border px-3 py-2 text-xs font-mono text-white focus:border-signal outline-none mt-1"
+          >
+            <option value="system">Follow the visitor&apos;s system setting</option>
+            <option value="light">Light (day map)</option>
+            <option value="dark">Dark (night map)</option>
+          </select>
+          <p className="text-[11px] font-mono text-telemetry-faint mt-2">
+            Visitors can still switch with the toggle in the navigation. Line colours are fixed by the design.
+          </p>
         </div>
       </div>
 
@@ -127,7 +121,7 @@ export function SettingsForm({ initialSettings }: { initialSettings: ISettings }
         <div className="space-y-4">
           <div>
             <label className="telemetry-tag text-telemetry-muted">
-              Hero Architectural Headline
+              Hero headline (wrap a word in *asterisks* to underline it by hand)
             </label>
             <textarea
               rows={2}
@@ -139,7 +133,7 @@ export function SettingsForm({ initialSettings }: { initialSettings: ISettings }
                   hero: { ...formData.hero, headline: e.target.value },
                 })
               }
-              className="w-full bg-substrate border border-telemetry-border p-3 text-sm font-mono text-white focus:border-signal outline-none uppercase font-bold"
+              className="w-full bg-substrate border border-telemetry-border p-3 text-sm font-mono text-white focus:border-signal outline-none font-bold"
             />
           </div>
 
@@ -188,6 +182,78 @@ export function SettingsForm({ initialSettings }: { initialSettings: ISettings }
                 className="w-full bg-substrate border border-telemetry-border px-3 py-2 text-xs font-mono text-white focus:border-signal outline-none"
               />
             </div>
+          </div>
+
+          <div>
+            <label className="telemetry-tag text-telemetry-muted">
+              Numbers under the hero, one per line as &ldquo;value | label&rdquo; (keep them true)
+            </label>
+            <textarea
+              rows={4}
+              defaultValue={(formData.stats || []).map((s) => `${s.value} | ${s.label}`).join('\n')}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  stats: pairs(e.target.value).map(([value, label]) => ({ value, label })),
+                })
+              }
+              className="w-full bg-substrate border border-telemetry-border p-3 text-sm font-mono text-white focus:border-signal outline-none"
+            />
+          </div>
+
+          <div>
+            <label className="telemetry-tag text-telemetry-muted">Handwritten line beside the numbers</label>
+            <input
+              type="text"
+              value={formData.hero.quote || ''}
+              onChange={(e) => setFormData({ ...formData, hero: { ...formData.hero, quote: e.target.value } })}
+              className="w-full bg-substrate border border-telemetry-border px-3 py-2 text-xs font-mono text-white focus:border-signal outline-none"
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* How I build */}
+      <div className="border border-telemetry-border bg-substrate-surface p-6 space-y-6">
+        <div className="border-b border-telemetry-border/60 pb-3">
+          <h2 className="text-base font-black uppercase text-white tracking-tight">How I build</h2>
+        </div>
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="telemetry-tag text-telemetry-muted">Heading</label>
+              <input
+                type="text"
+                value={formData.approach?.title || ''}
+                onChange={(e) => setFormData({ ...formData, approach: { ...approach, title: e.target.value } })}
+                className="w-full bg-substrate border border-telemetry-border px-3 py-2 text-xs font-mono text-white focus:border-signal outline-none"
+              />
+            </div>
+            <div>
+              <label className="telemetry-tag text-telemetry-muted">Grey second half</label>
+              <input
+                type="text"
+                value={formData.approach?.subtitle || ''}
+                onChange={(e) => setFormData({ ...formData, approach: { ...approach, subtitle: e.target.value } })}
+                className="w-full bg-substrate border border-telemetry-border px-3 py-2 text-xs font-mono text-white focus:border-signal outline-none"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="telemetry-tag text-telemetry-muted">
+              Steps, one per line as &ldquo;title | short line&rdquo; (icons follow the order: retrieve, reason, tools, measure, improve)
+            </label>
+            <textarea
+              rows={5}
+              defaultValue={(formData.approach?.steps || []).map((s) => `${s.title} | ${s.text}`).join('\n')}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  approach: { ...approach, steps: pairs(e.target.value).map(([title, text]) => ({ title, text })) },
+                })
+              }
+              className="w-full bg-substrate border border-telemetry-border p-3 text-sm font-mono text-white focus:border-signal outline-none"
+            />
           </div>
         </div>
       </div>

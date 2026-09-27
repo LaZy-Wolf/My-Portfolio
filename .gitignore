@@ -32,3 +32,15 @@ yarn-error.log*
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local DB backups
+/backups
+
+# Impeccable working files
+/.impeccable
+
+# Raw source material, kept local
+/DataForPortfolio
+/MeMee.png
+/Akhil_Kumar_Resume.pdf
+/.claude

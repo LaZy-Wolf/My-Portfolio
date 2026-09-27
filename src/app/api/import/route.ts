@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { Profile } from '@/models/Profile';
@@ -60,6 +61,7 @@ export async function POST(req: Request) {
       );
     }
 
+    revalidatePath('/', 'layout');
     return NextResponse.json({
       message: 'PORTFOLIO TELEMETRY RESTORED SUCCESSFULLY',
       restoredAt: new Date().toISOString(),

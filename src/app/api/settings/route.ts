@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { Settings } from '@/models/Settings';
@@ -32,6 +33,7 @@ export async function PUT(req: Request) {
       { new: true, upsert: true }
     );
 
+    revalidatePath('/', 'layout');
     return NextResponse.json(updated);
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Failed to update settings';

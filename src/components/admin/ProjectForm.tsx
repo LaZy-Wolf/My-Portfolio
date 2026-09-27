@@ -45,6 +45,7 @@ export function ProjectForm({ initialProject, isEditing = false }: ProjectFormPr
     },
     metrics: initialProject?.metrics || [],
     processSteps: initialProject?.processSteps || [],
+    note: initialProject?.note || '',
     caseStudyBlocks: initialProject?.caseStudyBlocks || [],
   });
 
@@ -274,6 +275,17 @@ export function ProjectForm({ initialProject, isEditing = false }: ProjectFormPr
                 className="w-full bg-substrate border border-telemetry-border p-3 text-sm font-mono text-white focus:border-signal outline-none"
               />
             </div>
+            <div>
+              <label className="telemetry-tag text-telemetry-muted">Margin note (optional, handwritten beside the line)</label>
+              <input
+                type="text"
+                maxLength={60}
+                value={formData.note || ''}
+                onChange={(e) => setFormData({ ...formData, note: e.target.value })}
+                placeholder="e.g. still chasing that 512 ms"
+                className="w-full bg-substrate border border-telemetry-border px-3 py-2 text-sm font-mono text-white focus:border-signal outline-none"
+              />
+            </div>
           </div>
 
           <div className="space-y-4">
@@ -375,14 +387,14 @@ export function ProjectForm({ initialProject, isEditing = false }: ProjectFormPr
                   type="text"
                   value={metric.label}
                   onChange={(e) => handleUpdateMetric(i, 'label', e.target.value)}
-                  placeholder="Label (e.g. Ingestion Latency)"
+                  placeholder="Label (e.g. Time to first audio, p50). A metric named Target draws a ghost marker."
                   className="flex-1 bg-substrate border border-telemetry-border px-3 py-1.5 text-xs font-mono text-white focus:border-signal outline-none"
                 />
                 <input
                   type="text"
                   value={metric.value}
                   onChange={(e) => handleUpdateMetric(i, 'value', e.target.value)}
-                  placeholder="Value (e.g. < 1.4ms)"
+                  placeholder="Value (e.g. 1412 ms)"
                   className="w-32 bg-substrate border border-telemetry-border px-3 py-1.5 text-xs font-mono text-white focus:border-signal outline-none"
                 />
                 <button
@@ -404,8 +416,11 @@ export function ProjectForm({ initialProject, isEditing = false }: ProjectFormPr
             <div>
               <span className="telemetry-tag text-signal">[ PROCESS ENGINE ]</span>
               <h3 className="text-sm font-mono uppercase font-bold text-white mt-1">
-                Execution Steps
+                Line stations
               </h3>
+              <p className="text-[11px] font-mono text-telemetry-faint mt-1">
+                Stops drawn on this project&apos;s line, in order. End a stop with &quot;@ 165&quot; to record the measured ms from the previous stop; timed stops are drawn to scale.
+              </p>
             </div>
             <button
               type="button"
@@ -426,7 +441,7 @@ export function ProjectForm({ initialProject, isEditing = false }: ProjectFormPr
                   type="text"
                   value={step}
                   onChange={(e) => handleUpdateProcessStep(i, e.target.value)}
-                  placeholder="e.g. Protocol Architecture & Buffer Allocation"
+                  placeholder="e.g. Deepgram transcript @ 165"
                   className="flex-1 bg-substrate border border-telemetry-border px-3 py-1.5 text-xs font-mono text-white focus:border-signal outline-none"
                 />
                 <button

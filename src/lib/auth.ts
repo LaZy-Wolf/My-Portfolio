@@ -1,22 +1,26 @@
+import { createHash, timingSafeEqual } from 'node:crypto';
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+
+// Hash first so both sides have equal length, then compare in constant time.
+const same = (a: string, b: string) =>
+  timingSafeEqual(createHash('sha256').update(a).digest(), createHash('sha256').update(b).digest());
 
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: 'Admin Credentials',
       credentials: {
-        email: { label: 'Email', type: 'email', placeholder: 'admin@portfolio.local' },
+        email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        const adminEmail = process.env.ADMIN_EMAIL || 'admin@portfolio.local';
-        const adminPassword = process.env.ADMIN_PASSWORD || 'AdminSecurePassword2026!';
+        const adminEmail = process.env.ADMIN_EMAIL;
+        const adminPassword = process.env.ADMIN_PASSWORD;
+        // No built-in fallback credentials: an unconfigured deploy must not be open to anyone who reads the repo.
+        if (!adminEmail || !adminPassword || !credentials?.email || !credentials?.password) return null;
 
-        if (
-          credentials?.email === adminEmail &&
-          credentials?.password === adminPassword
-        ) {
+        if (same(credentials.email, adminEmail) && same(credentials.password, adminPassword)) {
           return {
             id: 'admin',
             email: adminEmail,
@@ -35,5 +39,6 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/admin/login',
   },
-  secret: process.env.NEXTAUTH_SECRET || 'portfolio_master_secret_key_change_in_prod_99881122',
+  // Required in production. A hard-coded fallback would let anyone forge admin sessions.
+  secret: process.env.NEXTAUTH_SECRET,
 };

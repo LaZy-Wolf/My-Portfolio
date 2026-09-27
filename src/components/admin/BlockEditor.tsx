@@ -14,6 +14,7 @@ import {
   Quote,
   TrendingUp,
   ExternalLink,
+  Table,
 } from 'lucide-react';
 
 interface BlockEditorProps {
@@ -164,6 +165,33 @@ export function BlockEditor({ blocks, onChange }: BlockEditorProps) {
                 </div>
               )}
 
+              {block.type === 'table' && (
+                <div className="space-y-3">
+                  <div>
+                    <label className="telemetry-tag text-telemetry-muted">
+                      Table rows (one row per line, cells separated by |, first row is the header)
+                    </label>
+                    <textarea
+                      rows={6}
+                      value={block.content || ''}
+                      onChange={(e) => updateBlock(index, { content: e.target.value })}
+                      placeholder={'Stage | p50 | Target\nTranscription | 165 ms | 150 ms'}
+                      className="w-full bg-substrate-surface border border-telemetry-border p-3 text-sm font-mono text-white focus:border-signal outline-none"
+                    />
+                  </div>
+                  <div>
+                    <label className="telemetry-tag text-telemetry-muted">Source note (optional)</label>
+                    <input
+                      type="text"
+                      value={block.caption || ''}
+                      onChange={(e) => updateBlock(index, { caption: e.target.value })}
+                      placeholder="Where these numbers were measured"
+                      className="w-full bg-substrate-surface border border-telemetry-border px-3 py-2 text-xs font-mono text-white focus:border-signal outline-none"
+                    />
+                  </div>
+                </div>
+              )}
+
               {block.type === 'image' && (
                 <div className="space-y-3">
                   <ImageUpload
@@ -310,6 +338,13 @@ export function BlockEditor({ blocks, onChange }: BlockEditorProps) {
             className="brutalist-btn text-xs py-1.5 flex items-center gap-1.5"
           >
             <ExternalLink className="w-3.5 h-3.5" /> + Link
+          </button>
+          <button
+            type="button"
+            onClick={() => addBlock('table')}
+            className="brutalist-btn text-xs py-1.5 flex items-center gap-1.5"
+          >
+            <Table className="w-3.5 h-3.5" /> + Table
           </button>
         </div>
       </div>

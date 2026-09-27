@@ -2,7 +2,7 @@ import mongoose, { Schema, Model } from 'mongoose';
 
 export interface ICaseStudyBlock {
   id?: string;
-  type: 'heading' | 'paragraph' | 'image' | 'gallery' | 'quote' | 'metric' | 'link';
+  type: 'heading' | 'paragraph' | 'image' | 'gallery' | 'quote' | 'metric' | 'link' | 'table';
   content?: string;
   imageUrl?: string;
   galleryUrls?: string[];
@@ -38,6 +38,8 @@ export interface IProject {
     value: string;
   }[];
   processSteps: string[];
+  /** A short handwritten note shown beside the project's line. */
+  note?: string;
   caseStudyBlocks: ICaseStudyBlock[];
   createdAt?: Date;
   updatedAt?: Date;
@@ -48,7 +50,7 @@ const CaseStudyBlockSchema = new Schema<ICaseStudyBlock>(
     id: { type: String },
     type: {
       type: String,
-      enum: ['heading', 'paragraph', 'image', 'gallery', 'quote', 'metric', 'link'],
+      enum: ['heading', 'paragraph', 'image', 'gallery', 'quote', 'metric', 'link', 'table'],
       required: true,
     },
     content: { type: String, default: '' },
@@ -90,6 +92,7 @@ const ProjectSchema = new Schema<IProject>(
       },
     ],
     processSteps: { type: [String], default: [] },
+    note: { type: String, default: '' },
     caseStudyBlocks: [CaseStudyBlockSchema],
   },
   {

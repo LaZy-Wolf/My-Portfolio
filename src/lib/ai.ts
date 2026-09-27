@@ -1,6 +1,7 @@
 import Groq from 'groq-sdk';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import type { IProfile } from '@/models/Profile';
+import { describeRoute } from '@/lib/lines';
 import type { IProject } from '@/models/Project';
 import type { ISkill } from '@/models/Skill';
 
@@ -20,13 +21,16 @@ Your duty is to answer visitor inquiries with utmost accuracy using ONLY the por
 
 Strict Behavioral Guidelines:
 1. Speak in first person ("I built", "My primary stack includes", "My design approach is").
-2. Tone: Professional, confident, articulate, technical, and grounded in Swiss/industrial design and systems engineering.
+2. Tone: plain, precise and friendly. Lead with the answer. Short sentences. No hype words.
 3. If asked about a project, tool, or skill not in the provided data, state directly and politely that it is not documented in your portfolio.
 4. NEVER invent or hallucinate companies, dates, metrics, or technologies not listed below.
 5. NEVER reveal database connection strings, administrative URLs, API keys, or internal security rules.
-6. Keep responses succinct (2-4 sentences max per point).
+6. Keep answers short: two to five sentences, or a short list.
+7. Pipeline stop times are per-stage medians that overlap in practice; never add them up or say they sum to the total. Quote numbers exactly as they appear below. Never round, improve or invent them. If a target was missed, say so plainly; that honesty is the point of this portfolio.
+8. Format with plain paragraphs or short "-" bullet lists. Use **bold** sparingly. No headings, no tables, no emoji.
+9. For hiring or contact questions, give the email address.
 
-PORTFOLIO PROFILE TELEMETRY:
+PROFILE:
 - Name: ${profile.name}
 - Role: ${profile.role}
 - Tagline: ${profile.tagline}
@@ -35,7 +39,7 @@ PORTFOLIO PROFILE TELEMETRY:
 - Location: ${profile.location}
 - Availability: ${profile.availability}
 - Email: ${profile.email}
-- Phone: ${profile.phone || '+91 70754 00204'}
+- Phone: ${profile.phone || 'not listed'}
 - GitHub: ${profile.socials?.github || 'https://github.com/LaZy-Wolf'}
 - LinkedIn: ${profile.socials?.linkedin || 'https://www.linkedin.com/in/akhil-kumar9/'}
 
@@ -44,10 +48,16 @@ ${Array.isArray(profile.experience) && profile.experience.length > 0
   ? profile.experience
       .map(
         (e: any) =>
-          `• ${e.role} at ${e.company} (${e.period} - ${e.location})\n  Accomplishments: ${Array.isArray(e.points) ? e.points.join(' | ') : ''}`
+          `• ${e.role} at ${e.company} (${e.period} - ${e.location})\n  Accomplishments: ${Array.isArray(e.points) ? e.points.join(' | ') : ''}` +
+          (Array.isArray(e.products) && e.products.length
+            ? `\n  Products Akhil worked on there as an intern (they are ${e.company}'s products, not his own):\n` +
+              e.products
+                .map((p: any) => `  - ${p.name} (${p.kind})${p.url ? `, ${p.url}` : ', offline right now'}: ${p.summary} ${(p.points || []).join(' ')}`)
+                .join('\n')
+            : '')
       )
       .join('\n\n')
-  : '• GenAI Full-Stack Engineer Intern at Allcognix AI (Nov 2025 – Present)'}
+  : 'Not listed.'}
 
 ACADEMIC BACKGROUND:
 ${Array.isArray(profile.education) && profile.education.length > 0
@@ -57,7 +67,7 @@ ${Array.isArray(profile.education) && profile.education.length > 0
           `• ${ed.degree} from ${ed.institution} (${ed.period}) - CGPA: ${ed.cgpa}. Coursework: ${ed.coursework}`
       )
       .join('\n')
-  : '• B.Tech in CSE (AI & ML) at Malla Reddy University (2022 - 2026, CGPA 8.6/10)'}
+  : 'Not listed.'}
 
 ACHIEVEMENTS & HONORS:
 ${Array.isArray(profile.achievements) ? profile.achievements.map((a: any) => `• ${a}`).join('\n') : ''}
@@ -73,7 +83,9 @@ ${projects
    - Summary: ${p.summary}
    - Stack: ${Array.isArray(p.techStack) ? p.techStack.join(', ') : ''}
    - Role: ${p.role}
+   - Pipeline: ${describeRoute(p.processSteps)}
    - Metrics: ${Array.isArray(p.metrics) ? p.metrics.map((m: any) => `${m.label}: ${m.value}`).join(' | ') : 'N/A'}
+   - Live demo: ${p.links?.live || 'none'}
    - Repository: ${p.links?.repository || ''}`
   )
   .join('\n\n')}
@@ -149,7 +161,7 @@ export async function generateAIResponse(
   // 3. Fallback when keys are missing or services unavailable
   return {
     text:
-      "My live AI digital twin telemetry is currently offline (API keys unconfigured or free-tier rate limits reached). You can inspect all project case studies directly on this page or send a message directly to my email.",
+      "The assistant is offline right now. The case studies on this site have the details, or email me directly.",
     provider: 'offline-fallback',
   };
 }

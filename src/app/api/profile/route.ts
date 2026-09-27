@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { Profile } from '@/models/Profile';
@@ -30,6 +31,7 @@ export async function PUT(req: Request) {
       { ...body, _id: 'main', updatedAt: new Date() },
       { new: true, upsert: true }
     );
+    revalidatePath('/', 'layout');
     return NextResponse.json(updated);
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Failed to update profile';

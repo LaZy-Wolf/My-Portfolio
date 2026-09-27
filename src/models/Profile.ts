@@ -6,6 +6,19 @@ export interface IExperience {
   location: string;
   period: string;
   points: string[];
+  /** Products built in this role. They belong to the employer; the page says so. */
+  products?: IWorkProduct[];
+}
+
+export interface IWorkProduct {
+  name: string;
+  kind: string;
+  url: string;
+  status: 'live' | 'offline';
+  image: string;
+  summary: string;
+  points: string[];
+  note?: string;
 }
 
 export interface IEducation {

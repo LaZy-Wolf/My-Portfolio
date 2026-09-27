@@ -1,0 +1,13 @@
+# Never upload secrets or local working files.
+.env
+.env.*
+!.env.example
+backups
+DataForPortfolio
+MeMee.png
+Akhil_Kumar_Resume.pdf
+PortfolioPlan.txt
+PORTFOLIO_MASTER_PLAN.md
+.impeccable
+.claude
+docs

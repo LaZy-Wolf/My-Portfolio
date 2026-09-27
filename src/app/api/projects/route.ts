@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { Project } from '@/models/Project';
@@ -60,6 +61,7 @@ export async function POST(req: Request) {
       order: body.order ?? newOrder,
     });
 
+    revalidatePath('/', 'layout');
     return NextResponse.json(project, { status: 201 });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Failed to create project';

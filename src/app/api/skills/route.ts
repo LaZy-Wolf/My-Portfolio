@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { Skill } from '@/models/Skill';
@@ -38,6 +39,7 @@ export async function POST(req: Request) {
       order: body.order ?? order,
     });
 
+    revalidatePath('/', 'layout');
     return NextResponse.json(skill, { status: 201 });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Failed to create skill';

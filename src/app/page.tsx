@@ -1,48 +1,17 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
+import { Fragment, type ReactNode } from 'react';
 import { connectDB } from '@/lib/db';
 import { Profile, type IProfile } from '@/models/Profile';
 import { Project, type IProject } from '@/models/Project';
 import { Skill, type ISkill } from '@/models/Skill';
 import { Settings, type ISettings } from '@/models/Settings';
-import {
-  fallbackProfile,
-  fallbackProjects,
-  fallbackSkills,
-  fallbackSettings,
-} from '@/lib/fallbackData';
-import { HomeClient } from '@/components/home/HomeClient';
+import { fallbackProfile, fallbackProjects, fallbackSkills, fallbackSettings } from '@/lib/fallbackData';
+import { SiteShell } from '@/components/site/SiteShell';
+import { About, Approach, Builds, Contact, Hero, Industry, Stack, Work } from '@/components/site/HomeSections';
 
-export async function generateMetadata(): Promise<Metadata> {
-  let settings = fallbackSettings;
-  let profile = fallbackProfile;
+export const revalidate = 60;
 
-  try {
-    await connectDB();
-    const [dbSettings, dbProfile] = await Promise.all([
-      Settings.findById('main').lean(),
-      Profile.findById('main').lean(),
-    ]);
-    if (dbSettings) settings = dbSettings as unknown as ISettings;
-    if (dbProfile) profile = dbProfile as unknown as IProfile;
-  } catch (err) {
-    console.warn('Metadata generation using fallback:', err);
-  }
-
-  const title = settings?.seo?.title || `${profile.name} // Systems Architecture & Design`;
-  const description = settings?.seo?.description || profile.shortBio;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      images: settings?.seo?.ogImageUrl ? [settings.seo.ogImageUrl] : [],
-    },
-  };
-}
-
-export default async function HomePage() {
+async function getData() {
   let profile: IProfile = fallbackProfile;
   let projects: IProject[] = fallbackProjects;
   let skills: ISkill[] = fallbackSkills;
@@ -56,23 +25,56 @@ export default async function HomePage() {
       Skill.find().sort({ order: 1 }).lean(),
       Settings.findById('main').lean(),
     ]);
-
     if (dbProfile) profile = JSON.parse(JSON.stringify(dbProfile));
-    if (dbProjects && dbProjects.length > 0)
-      projects = JSON.parse(JSON.stringify(dbProjects));
-    if (dbSkills && dbSkills.length > 0)
-      skills = JSON.parse(JSON.stringify(dbSkills));
+    if (dbProjects?.length) projects = JSON.parse(JSON.stringify(dbProjects));
+    if (dbSkills?.length) skills = JSON.parse(JSON.stringify(dbSkills));
     if (dbSettings) settings = JSON.parse(JSON.stringify(dbSettings));
   } catch (err) {
-    console.warn('Failed to query DB for HomePage, using fallback dataset:', err);
+    console.warn('Home page is using the bundled content; database unavailable:', err);
   }
 
+  return { profile, projects, skills, settings };
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { profile, settings } = await getData();
+  const title = settings.seo?.title || `${profile.name}, ${profile.role}`;
+  const description = settings.seo?.description || profile.shortBio;
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'profile',
+      ...(settings.seo?.ogImageUrl ? { images: [settings.seo.ogImageUrl] } : {}),
+    },
+  };
+}
+
+export default async function HomePage() {
+  const { profile, projects, skills, settings } = await getData();
+
+  const sections: Record<string, ReactNode> = {
+    hero: <Hero profile={profile} settings={settings} projects={projects} />,
+    industry: <Industry profile={profile} />,
+    approach: <Approach settings={settings} projects={projects} />,
+    'featured-projects': <Work projects={projects} />,
+    projects: <Builds projects={projects} />,
+    skills: <Stack skills={skills} />,
+    about: <About profile={profile} />,
+    contact: <Contact profile={profile} settings={settings} />,
+  };
+
+  // Admin controls which sections show and in what order.
+  const configured = [...(settings.sections || [])].sort((a, b) => a.order - b.order);
+  const order = configured.length ? configured : Object.keys(sections).map((id) => ({ id, visible: true }));
+
   return (
-    <HomeClient
-      profile={profile}
-      projects={projects}
-      skills={skills}
-      settings={settings}
-    />
+    <SiteShell profile={profile} settings={settings} projects={projects}>
+      {order.filter((s) => s.visible && sections[s.id]).map((s) => (
+        <Fragment key={s.id}>{sections[s.id]}</Fragment>
+      ))}
+    </SiteShell>
   );
 }

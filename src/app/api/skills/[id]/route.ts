@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { Skill } from '@/models/Skill';
@@ -27,6 +28,7 @@ export async function PUT(req: Request, { params }: Params) {
       return NextResponse.json({ error: 'Skill category not found' }, { status: 404 });
     }
 
+    revalidatePath('/', 'layout');
     return NextResponse.json(updated);
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Failed to update skill';
@@ -48,6 +50,7 @@ export async function DELETE(req: Request, { params }: Params) {
       return NextResponse.json({ error: 'Skill category not found' }, { status: 404 });
     }
 
+    revalidatePath('/', 'layout');
     return NextResponse.json({ message: 'Skill category deleted' });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Failed to delete skill';

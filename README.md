@@ -1,6 +1,6 @@
-# Living Canvas Portfolio // Tactical Telemetry Edition
+# Living Canvas Portfolio
 
-A production-grade, customizable digital twin portfolio engineered with Next.js 15, Tailwind CSS, MongoDB Atlas, Cloudinary, and Groq/Gemini AI — designed under the **Industrial Brutalist UI & Swiss Tactical Telemetry** aesthetic.
+Portfolio of Gugulothu Akhil Kumar, built with Next.js 15, Tailwind CSS, MongoDB Atlas, Cloudinary and Groq/Gemini. The public site is designed as a transit map: every project is a line, every stop a measured pipeline stage. See `DESIGN.md` for the system and `PRODUCT.md` for the product brief.
 
 **Budget:** 100% Free Tier ($0.00 / forever).
 
@@ -58,7 +58,7 @@ GEMINI_API_KEY=your_gemini_api_key
 ```
 
 ### 3. Seed Database (Optional)
-Populate your database with rich starting case studies, bio metadata, and skill categories:
+Write the content in `src/content/portfolio.json` to MongoDB (reads `.env.local`; replaces projects and skills):
 ```bash
 npm run seed
 ```

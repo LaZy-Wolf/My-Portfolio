@@ -1,3 +1,4 @@
+import { revalidatePath } from 'next/cache';
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/db';
 import { Project } from '@/models/Project';
@@ -63,6 +64,7 @@ export async function PUT(req: Request, { params }: Params) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
 
+    revalidatePath('/', 'layout');
     return NextResponse.json(updated);
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Failed to update project';
@@ -89,6 +91,7 @@ export async function DELETE(req: Request, { params }: Params) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
     }
 
+    revalidatePath('/', 'layout');
     return NextResponse.json({ message: 'Project deleted successfully' });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Failed to delete project';

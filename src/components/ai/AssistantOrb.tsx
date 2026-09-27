@@ -1,232 +1,262 @@
 'use client';
 
-import { useState } from 'react';
-import { Bot, X, Send, Sparkles, Loader2, Copy, Check, Terminal } from 'lucide-react';
+import { Fragment, useEffect, useRef, useState, type ReactNode } from 'react';
+import { ArrowUp, MessageCircle, X } from 'lucide-react';
 
-interface AssistantOrbProps {
-  greeting?: string;
-  fallbackMessage?: string;
+interface AssistantProps {
+  greeting: string;
+  fallbackMessage: string;
 }
 
 interface Message {
   role: 'assistant' | 'user';
   text: string;
-  timestamp: string;
 }
 
 const SUGGESTIONS = [
-  'What are your strongest featured projects?',
-  'What is your architectural tech stack?',
-  'What is your availability for contract work?',
-  'Tell me about your design engineering philosophy.',
+  'What did you build at Allcognix AI?',
+  'How fast is SONAR, honestly?',
+  'Which project shows your RAG work best?',
+  'Are you open to full-time roles?',
 ];
 
-export function AssistantOrb({
-  greeting = 'Telemetry active. I am the digital twin of this portfolio. Ask me anything about systems, stack, or case studies.',
-}: AssistantOrbProps) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: 'assistant',
-      text: greeting,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    },
-  ]);
+export function AssistantOrb({ greeting, fallbackMessage }: AssistantProps) {
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([{ role: 'assistant', text: greeting }]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const panel = useRef<HTMLDivElement>(null);
+  const field = useRef<HTMLTextAreaElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const feed = useRef<HTMLDivElement>(null);
 
-  const sendMessage = async (textToSend: string) => {
-    if (!textToSend.trim() || loading) return;
+  useEffect(() => {
+    const onOpen = () => setOpen(true);
+    window.addEventListener('assistant:open', onOpen);
+    return () => window.removeEventListener('assistant:open', onOpen);
+  }, []);
 
-    const userMsg: Message = {
-      role: 'user',
-      text: textToSend.trim(),
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    };
+  useEffect(() => {
+    if (open) field.current?.focus();
+  }, [open]);
 
-    setMessages((prev) => [...prev, userMsg]);
+  // Stay out of the way while the hero's line is on screen.
+  const [tucked, setTucked] = useState(false);
+  useEffect(() => {
+    const hero = document.querySelector('.network');
+    if (!hero) return;
+    const io = new IntersectionObserver(([e]) => setTucked(e.isIntersecting));
+    io.observe(hero);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    feed.current?.scrollTo({ top: feed.current.scrollHeight, behavior: 'smooth' });
+  }, [messages, loading]);
+
+  const close = () => {
+    setOpen(false);
+    requestAnimationFrame(() => trigger.current?.focus());
+  };
+
+  const send = async (text: string) => {
+    const message = text.trim();
+    if (!message || loading) return;
+    setMessages((m) => [...m, { role: 'user', text: message }]);
     setInput('');
     setLoading(true);
-
     try {
       const res = await fetch('/api/ai/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: textToSend }),
+        body: JSON.stringify({ message }),
       });
-
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to get response');
-
-      const botMsg: Message = {
-        role: 'assistant',
-        text: data.text,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      };
-
-      setMessages((prev) => [...prev, botMsg]);
-    } catch (err: unknown) {
-      const errMsg: Message = {
-        role: 'assistant',
-        text: 'Telemetry communication failure. Please verify network status or reach out via direct email.',
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      };
-      setMessages((prev) => [...prev, errMsg]);
+      if (!res.ok || !data.text) throw new Error(data.error || 'No reply');
+      setMessages((m) => [...m, { role: 'assistant', text: data.text }]);
+    } catch {
+      setMessages((m) => [...m, { role: 'assistant', text: fallbackMessage }]);
     } finally {
       setLoading(false);
     }
   };
 
-  const copyToClipboard = (text: string, index: number) => {
-    navigator.clipboard.writeText(text);
-    setCopiedIndex(index);
-    setTimeout(() => setCopiedIndex(null), 2000);
-  };
+  const asked = messages.some((m) => m.role === 'user');
 
   return (
-    <aside aria-label="Digital Twin AI Assistant" className="fixed bottom-6 right-6 z-50">
-      {/* Expanded Terminal Panel */}
-      {isOpen ? (
-        <div className="w-[92vw] sm:w-[420px] max-h-[640px] h-[80vh] border border-telemetry-border bg-substrate-surface shadow-2xl flex flex-col relative animate-in fade-in zoom-in-95 duration-150">
-          {/* Header */}
-          <div className="p-3.5 border-b border-telemetry-border bg-substrate flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-2.5 h-2.5 bg-terminal rounded-full animate-ping" />
-              <div>
-                <div className="font-mono text-xs font-black uppercase text-white flex items-center gap-1.5">
-                  <Terminal className="w-3.5 h-3.5 text-signal" />
-                  DIGITAL TWIN // AI TELEMETRY
-                </div>
-                <div className="text-[9px] font-mono text-telemetry-muted">
-                  GROUNDED IN MONGODB PORTFOLIO DATA
-                </div>
-              </div>
+    <aside aria-label="Ask about my work" className="fixed bottom-4 right-4 z-assistant sm:bottom-6 sm:right-6">
+      {open ? (
+        <div
+          ref={panel}
+          role="dialog"
+          aria-label="Ask about my work"
+          onKeyDown={(e) => e.key === 'Escape' && close()}
+          className="assistant-panel flex h-[min(38rem,calc(100dvh-2rem))] w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-[14px] bg-paper-raised shadow-[0_24px_80px_-24px_rgb(0_0_0/0.45)] ring-1 ring-rule sm:w-[26rem]"
+        >
+          <header className="flex items-start gap-3 border-b border-rule px-5 py-4">
+            <div className="min-w-0 flex-1">
+              <h2 className="text-[1rem] font-semibold">Ask about my work</h2>
+              <p className="mt-0.5 text-[0.8125rem] leading-snug text-ink-2">
+                An AI that answers from this site only. The case studies are the source of truth.
+              </p>
             </div>
-
             <button
               type="button"
-              onClick={() => setIsOpen(false)}
-              className="p-1 text-telemetry-muted hover:text-white border border-telemetry-border"
-              title="Close chat terminal"
+              onClick={close}
+              className="btn -mr-2 -mt-1 h-9 w-9 px-0 text-ink-2 hover:bg-ink/[0.06] hover:text-ink"
+              aria-label="Close"
             >
-              <X className="w-4 h-4" />
+              <X className="h-[1.1rem] w-[1.1rem]" strokeWidth={1.75} aria-hidden />
             </button>
-          </div>
+          </header>
 
-          {/* Messages Feed */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 font-mono text-xs">
-            {messages.map((msg, i) => (
-              <div
-                key={i}
-                className={`flex flex-col ${
-                  msg.role === 'user' ? 'items-end' : 'items-start'
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-1 text-[10px] text-telemetry-faint">
-                  <span>{msg.role === 'user' ? 'YOU' : 'DIGITAL TWIN'}</span>
-                  <span>&bull;</span>
-                  <span>{msg.timestamp}</span>
-                </div>
-
-                <div
-                  className={`p-3 max-w-[88%] leading-relaxed border relative group ${
-                    msg.role === 'user'
-                      ? 'bg-substrate border-telemetry-border text-white'
-                      : 'bg-substrate/60 border-telemetry-border/70 text-telemetry-muted'
-                  }`}
+          <div ref={feed} data-lenis-prevent aria-live="polite" className="flex-1 space-y-4 overflow-y-auto px-5 py-5">
+            {messages.map((m, i) =>
+              m.role === 'user' ? (
+                <p
+                  key={i}
+                  className="ml-auto w-fit max-w-[85%] rounded-[14px] rounded-br-md bg-ink px-3.5 py-2.5 text-[0.9375rem] leading-relaxed text-paper"
                 >
-                  <p className="whitespace-pre-line">{msg.text}</p>
-
-                  {msg.role === 'assistant' && (
-                    <button
-                      type="button"
-                      onClick={() => copyToClipboard(msg.text, i)}
-                      className="absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 transition-opacity p-1 text-telemetry-faint hover:text-white"
-                      title="Copy response"
-                    >
-                      {copiedIndex === i ? (
-                        <Check className="w-3 h-3 text-terminal" />
-                      ) : (
-                        <Copy className="w-3 h-3" />
-                      )}
-                    </button>
-                  )}
+                  {m.text}
+                </p>
+              ) : (
+                <div key={i} className="max-w-[92%] space-y-2 text-[0.9375rem] leading-relaxed text-ink">
+                  <Markdown text={m.text} />
                 </div>
-              </div>
-            ))}
+              )
+            )}
 
             {loading && (
-              <div className="flex items-center gap-2 text-signal text-xs font-mono py-2">
-                <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                <span>RETRIEVING TELEMETRY VECTORS...</span>
-              </div>
+              <p className="flex items-center gap-2 text-[0.875rem] text-ink-2" role="status">
+                <span className="thinking" aria-hidden>
+                  <span />
+                  <span />
+                  <span />
+                </span>
+                Thinking
+              </p>
+            )}
+
+            {!asked && !loading && (
+              <ul className="space-y-1 pt-1">
+                {SUGGESTIONS.map((s) => (
+                  <li key={s}>
+                    <button
+                      type="button"
+                      onClick={() => send(s)}
+                      className="w-full rounded-[10px] px-3 py-2 text-left text-[0.9375rem] text-ink-2 ring-1 ring-inset ring-rule transition-colors hover:bg-ink/[0.04] hover:text-ink"
+                    >
+                      {s}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             )}
           </div>
 
-          {/* Suggestion Chips */}
-          <div className="p-3 border-t border-telemetry-border/40 bg-substrate/40 space-y-1.5">
-            <span className="text-[10px] font-mono text-telemetry-faint uppercase block">
-              QUICK PROMPTS:
-            </span>
-            <div className="flex flex-wrap gap-1.5">
-              {SUGGESTIONS.map((s, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  disabled={loading}
-                  onClick={() => sendMessage(s)}
-                  className="text-[10px] font-mono border border-telemetry-border hover:border-signal bg-substrate px-2 py-1 text-telemetry-muted hover:text-white transition-colors text-left"
-                >
-                  &rarr; {s}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Chat Input */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              sendMessage(input);
+              send(input);
             }}
-            className="p-3 border-t border-telemetry-border bg-substrate flex items-center gap-2"
+            className="flex items-end gap-2 border-t border-rule p-3"
           >
-            <input
-              type="text"
+            <label htmlFor="assistant-input" className="sr-only">
+              Your question
+            </label>
+            <textarea
+              id="assistant-input"
+              ref={field}
+              rows={1}
               value={input}
+              maxLength={500}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask about systems, stack, projects..."
-              disabled={loading}
-              className="flex-1 bg-substrate-surface border border-telemetry-border px-3 py-2 text-xs font-mono text-white focus:border-signal outline-none"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  send(input);
+                }
+              }}
+              placeholder="Ask about a project or the stack"
+              className="max-h-32 min-h-[2.75rem] flex-1 resize-none rounded-[10px] bg-paper px-3 py-2.5 text-[0.9375rem] text-ink ring-1 ring-inset ring-rule-strong placeholder:text-ink-3 focus:outline-none focus:ring-2 focus:ring-ink"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="brutalist-btn brutalist-btn-accent text-xs py-2 px-3 flex items-center gap-1 disabled:opacity-40"
+              className="btn-ink h-11 w-11 shrink-0 px-0 disabled:opacity-35"
+              aria-label="Send"
             >
-              <Send className="w-3.5 h-3.5" />
+              <ArrowUp className="h-[1.1rem] w-[1.1rem]" strokeWidth={2} aria-hidden />
             </button>
           </form>
         </div>
       ) : (
-        /* Floating Tactical Orb */
         <button
+          ref={trigger}
           type="button"
-          onClick={() => setIsOpen(true)}
-          className="group relative flex items-center gap-2 bg-substrate-surface border border-telemetry-border hover:border-signal px-3.5 py-2.5 shadow-2xl transition-all hover:scale-105"
-          title="Open AI Digital Twin Assistant"
+          onClick={() => setOpen(true)}
+          className={`btn-ink h-12 gap-2.5 pl-4 pr-5 shadow-[0_10px_30px_-10px_rgb(0_0_0/0.5)] transition-[opacity,transform] duration-300 ease-out ${
+            tucked ? 'pointer-events-none translate-y-3 opacity-0' : ''
+          }`}
+          tabIndex={tucked ? -1 : undefined}
         >
-          <div className="relative">
-            <Bot className="w-5 h-5 text-signal" />
-            <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-terminal animate-ping" />
-          </div>
-          <span className="font-mono text-xs uppercase font-bold text-white tracking-wide">
-            ASK DIGITAL TWIN
-          </span>
-          <Sparkles className="w-3.5 h-3.5 text-signal opacity-80" />
+          <MessageCircle className="h-[1.1rem] w-[1.1rem]" strokeWidth={1.9} aria-hidden />
+          Ask about my work
         </button>
       )}
     </aside>
   );
+}
+
+/** Just enough Markdown for chat replies: paragraphs, bullet lists, **bold** and links. */
+function Markdown({ text }: { text: string }) {
+  const blocks = text.trim().split(/\n{2,}/);
+  return (
+    <>
+      {blocks.map((block, i) => {
+        const lines = block.split('\n').filter((l) => l.trim());
+        if (lines.every((l) => /^\s*([-*•]|\d+\.)\s+/.test(l))) {
+          return (
+            <ul key={i} className="list-disc space-y-1 pl-5 marker:text-ink-3">
+              {lines.map((l, j) => (
+                <li key={j}>{inline(l.replace(/^\s*([-*•]|\d+\.)\s+/, ''))}</li>
+              ))}
+            </ul>
+          );
+        }
+        return (
+          <p key={i}>
+            {lines.map((l, j) => (
+              <Fragment key={j}>
+                {j > 0 && <br />}
+                {inline(l.replace(/^#+\s*/, ''))}
+              </Fragment>
+            ))}
+          </p>
+        );
+      })}
+    </>
+  );
+}
+
+function inline(text: string): ReactNode[] {
+  const out: ReactNode[] = [];
+  const re = /\*\*(.+?)\*\*|\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)|(https?:\/\/[^\s)]+)/g;
+  let last = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) {
+    if (m.index > last) out.push(text.slice(last, m.index));
+    if (m[1]) out.push(<strong key={m.index} className="font-semibold">{m[1]}</strong>);
+    else {
+      const href = m[3] || m[4];
+      out.push(
+        <a key={m.index} href={href} target="_blank" rel="noopener noreferrer" className="link-quiet break-words">
+          {m[2] || href.replace(/^https?:\/\//, '')}
+        </a>
+      );
+    }
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
 }
