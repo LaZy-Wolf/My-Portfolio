@@ -82,16 +82,8 @@ export function Hero({ profile, settings, projects }: { profile: IProfile; setti
                 <span className={dot} aria-hidden>
                   <Briefcase className="h-4 w-4 text-ink-3" strokeWidth={1.75} />
                 </span>
-                <span>
-                  {current.role} at{' '}
-                  <a
-                    href={current.url || '#experience'}
-                    {...(current.url ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                    className="font-medium text-ink underline decoration-rule-strong underline-offset-4 hover:decoration-ink"
-                  >
-                    {current.company}
-                  </a>
-                </span>
+                {/* Title only: the internship ends soon, and the company is named further down the page. */}
+                <span>{current.role.replace(/\s+intern$/i, '')}</span>
               </li>
             )}
             {available && (
